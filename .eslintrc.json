@@ -1,0 +1,32 @@
+{
+  "extends": ["next/core-web-vitals", "prettier", "plugin:yml/standard"],
+  "plugins": ["prettier"],
+  "rules": {
+    "react/no-unescaped-entities": 0,
+    "react/display-name": 0,
+    "@next/next/no-html-link-for-pages": ["error", "renderer/pages/"],
+    "prettier/prettier": [
+      "error",
+      {
+        "useTabs": false,
+        "tabSize": 2,
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "arrowParens": "avoid",
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "overrides": [
+		{
+		  "files": ["*.yaml", "*.yml"],
+		  "parser": "yaml-eslint-parser",
+      "rules": {
+        "yml/quotes": 0
+      }
+		}
+  ]
+}

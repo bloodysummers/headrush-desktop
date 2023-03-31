@@ -1,0 +1,53 @@
+{
+  "private": true,
+  "name": "my-nextron-app",
+  "description": "Desktop application to edit the rigs and setlists of the Headrush amp modelers.",
+  "version": "1.0.0",
+  "author": "Luis Díaz <bloodysummers@gmail.com>",
+  "main": "app/background.js",
+  "scripts": {
+    "dev": "nextron",
+    "build": "nextron build",
+    "postinstall": "electron-builder install-app-deps && husky install",
+    "semantic-release": "semantic-release",
+    "pre-commit": "lint-staged"
+  },
+  "dependencies": {
+    "electron-serve": "^1.1.0",
+    "electron-store": "^8.1.0",
+    "react-query": "^3.39.3",
+    "recoil": "^0.7.7"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-angular": "^17.4.4",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.31",
+    "autoprefixer": "^10.4.14",
+    "electron": "^21.3.3",
+    "electron-builder": "^23.6.0",
+    "eslint": "^8.37.0",
+    "eslint-config-next": "^13.2.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-yml": "^1.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "next": "^12.3.4",
+    "nextron": "^8.5.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "regenerator-runtime": "^0.13.11",
+    "semantic-release": "^21.0.0",
+    "tailwindcss": "^3.3.1",
+    "typescript": "^5.0.3"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx,yaml,yml}": "eslint --fix"
+  },
+  "volta": {
+    "node": "18.15.0"
+  }
+}
