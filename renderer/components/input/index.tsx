@@ -1,4 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, HTMLInputTypeAttribute } from 'react'
+import { ChangeEvent, HTMLInputTypeAttribute } from 'react'
+import classNames from 'classnames'
 
 type InputProps = {
   type?: HTMLInputTypeAttribute | undefined
@@ -22,7 +23,7 @@ export default function Input({
   }
   return (
     <input
-      className="p-4 bg-slate-200"
+      className="p-4 bg-white border-2 border-white"
       type={type}
       name={name}
       onChange={_onChange}

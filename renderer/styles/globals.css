@@ -7,4 +7,16 @@
     @apply bg-gray-700;
     background-image: url('../public/img/background.webp');
   }
+  * {
+    box-sizing: border-box;
+  }
+  ::-moz-selection { /* Code for Firefox */
+    color: white;
+    @apply bg-slate-600;
+  }
+  
+  ::selection {
+    color: white;
+    @apply bg-neutral-600;
+  }
 }

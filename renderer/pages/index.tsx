@@ -30,10 +30,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-screen flex flex-row items-center justify-center">
-        <div className="bg-gray-500 content-center p-4 bg-opacity-30">
+        <div className="bg-neutral-500 content-center p-4 bg-opacity-30">
           <form
             onSubmit={onSubmit}
-            className="bg-gray-400 text-center p-4 bg-opacity-20"
+            className="bg-neutral-400 text-center p-4 bg-opacity-20"
           >
             <Image
               src={'/img/headrush-logo.png'}

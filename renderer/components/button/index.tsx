@@ -11,7 +11,7 @@ export default function Button({ children, type, className }: ButtonProps) {
     <button
       type={type}
       className={classNames(
-        'bg-red-800 text-white uppercase p-4 hover:bg-red-600 transition-all',
+        'bg-neutral-800 border-white border-2 text-white uppercase p-4 hover:bg-neutral-600 transition-all',
         className
       )}
     >
