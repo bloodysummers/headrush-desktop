@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron'
-import { atom, AtomEffect } from 'recoil'
+import { atom } from 'recoil'
 import editorData from '../data/editor_data.json'
 
 const defaultConfig = {
