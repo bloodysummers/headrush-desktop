@@ -1,11 +1,14 @@
 import {
   screen,
   BrowserWindow,
-  BrowserWindowConstructorOptions
+  BrowserWindowConstructorOptions,
+  ipcMain
 } from 'electron'
 import Store from 'electron-store'
+import fs from 'fs'
+import path from 'path'
 
-export default (
+const createWindow = (
   windowName: string,
   options: BrowserWindowConstructorOptions
 ): BrowserWindow => {
@@ -81,7 +84,16 @@ export default (
   }
   win = new BrowserWindow(browserOptions)
 
+  ipcMain.on('save_editor_data', (sender, data) => {
+    fs.writeFileSync(
+      path.join(__dirname, `../renderer/data/editor_data.json`),
+      JSON.stringify(data)
+    )
+  })
+
   win.on('close', saveState)
 
   return win
 }
+
+export default createWindow

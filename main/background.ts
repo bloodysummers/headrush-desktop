@@ -19,7 +19,6 @@ if (isProd) {
     titleBarStyle: 'hidden',
     titleBarOverlay: true,
     webPreferences: {
-      devTools: false,
       sandbox: false
     },
     resizable: false

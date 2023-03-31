@@ -1,32 +1,31 @@
+import { ipcRenderer } from 'electron'
 import { atom, AtomEffect } from 'recoil'
+import editorData from '../data/editor_data.json'
+
+const defaultConfig = {
+  path: ''
+}
 
 export type EditorData = {
   path: string
 }
 
-const localStorageEffect =
-  (key: string) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(key)
-    if (savedValue != null) {
-      setSelf(JSON.parse(savedValue))
+const dataToJsonEffect = (key: string) => {
+  return ({ setSelf, onSet }) => {
+    const value = require(`../data/${key}.json`)
+    if (value !== null) {
+      setSelf(value)
     }
-
-    onSet((newValue, _, isReset) => {
+    onSet((value, _, isReset) => {
       isReset
-        ? localStorage.removeItem(key)
-        : localStorage.setItem(key, JSON.stringify(newValue))
+        ? ipcRenderer.send('save_editor_data', defaultConfig)
+        : ipcRenderer.send('save_editor_data', value)
     })
   }
+}
 
 export const editorState = atom<EditorData>({
   key: 'editorState',
-  default: {
-    path: ''
-  },
-  ...(typeof window !== 'undefined'
-    ? {
-        effects: [localStorageEffect('editor_data')]
-      }
-    : null)
+  default: editorData,
+  effects: [dataToJsonEffect('editor_data')]
 })

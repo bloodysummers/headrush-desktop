@@ -1,17 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { editorState } from '../state/editor'
 import Button from '@/components/button'
 import Input from '@/components/input'
+import Link from 'next/link'
 
 export default function Home() {
-  const router = useRouter()
-  const setEditor = useSetRecoilState(editorState)
+  const [editor, setEditor] = useRecoilState(editorState)
 
-  const [path, setPath] = useState<string>()
+  const [path, setPath] = useState<string>(editor.path)
 
   const onChange = value => {
     setPath(value)
@@ -20,7 +19,6 @@ export default function Home() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     setEditor({ path: path || '' })
-    router.push('/assets')
   }
 
   return (
@@ -56,6 +54,16 @@ export default function Home() {
             />
             <Button type="submit">Read directory</Button>
           </form>
+          {editor.path && (
+            <div>
+              <Button>
+                <Link href="/assets/setlist">Setlists</Link>
+              </Button>
+              <Button>
+                <Link href="/assets/rig">Rigs</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </main>
     </>
