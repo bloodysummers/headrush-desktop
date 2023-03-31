@@ -5,9 +5,10 @@ import { useRecoilState } from 'recoil'
 import { editorState } from '../state/editor'
 import Button from '@/components/button'
 import Input from '@/components/input'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+  const router = useRouter()
   const [editor, setEditor] = useRecoilState(editorState)
 
   const [path, setPath] = useState<string>(editor.path)
@@ -56,11 +57,17 @@ export default function Home() {
           </form>
           {editor.path && (
             <div className="flex flex-row shrink-0">
-              <Button className="flex-1">
-                <Link href="/assets/setlist">Setlists</Link>
+              <Button
+                className="flex-1"
+                onClick={() => router.push('/assets/setlist')}
+              >
+                Setlists
               </Button>
-              <Button className="flex-1">
-                <Link href="/assets/rig">Rigs</Link>
+              <Button
+                className="flex-1"
+                onClick={() => router.push('/assets/rig')}
+              >
+                Rigs
               </Button>
             </div>
           )}
