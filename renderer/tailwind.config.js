@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const customColors = require('./tokens/colors')
 
 module.exports = {
   content: [
@@ -10,6 +11,10 @@ module.exports = {
       // fontFamily: {
       //   sans: ['var(--font-vera']
       // }
+    },
+    colors: {
+      ...colors,
+      ...customColors
     }
   },
   plugins: []
