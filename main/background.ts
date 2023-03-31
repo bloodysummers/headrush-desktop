@@ -15,7 +15,14 @@ if (isProd) {
 
   const mainWindow = createWindow('main', {
     width: 1000,
-    height: 600
+    height: 600,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: true,
+    webPreferences: {
+      devTools: false,
+      sandbox: false
+    },
+    resizable: false
   })
 
   if (isProd) {
