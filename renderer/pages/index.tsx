@@ -55,11 +55,11 @@ export default function Home() {
             <Button type="submit">Read directory</Button>
           </form>
           {editor.path && (
-            <div>
-              <Button>
+            <div className="flex flex-row shrink-0">
+              <Button className="flex-1">
                 <Link href="/assets/setlist">Setlists</Link>
               </Button>
-              <Button>
+              <Button className="flex-1">
                 <Link href="/assets/rig">Rigs</Link>
               </Button>
             </div>
