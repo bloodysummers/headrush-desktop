@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors')
 const customColors = require('./tokens/colors')
+const scrollBars = require('tailwind-scrollbar')
 
 module.exports = {
   content: [
@@ -17,5 +18,5 @@ module.exports = {
       ...customColors
     }
   },
-  plugins: []
+  plugins: [scrollBars({ nocompatible: true })]
 }

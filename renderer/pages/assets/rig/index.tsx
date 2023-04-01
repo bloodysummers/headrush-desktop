@@ -1,11 +1,12 @@
+import { ipcRenderer } from 'electron'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { useRecoilValue } from 'recoil'
+import Header from '@/components/header'
+import RigList from '@/components/rig-list'
 import { EditorData, editorState } from '../../../state/editor'
 
 export default function Rig() {
-  const router = useRouter()
   const editorData = useRecoilValue<EditorData>(editorState)
 
   const { isLoading, error, data } = useQuery('rigsList', () =>
@@ -13,10 +14,6 @@ export default function Rig() {
       res => res.json() as Promise<string[]>
     )
   )
-
-  const editRig = (rig: string) => {
-    router.push(`/assets/rig/editor/${rig}`)
-  }
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -30,16 +27,9 @@ export default function Rig() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>List of rigs</h1>
-        <ul>
-          {data &&
-            data.map(rig => (
-              <li key={rig} onClick={() => editRig(rig)}>
-                {rig}
-              </li>
-            ))}
-        </ul>
+      <main className="h-screen">
+        <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
+        <RigList data={data} />
       </main>
     </>
   )

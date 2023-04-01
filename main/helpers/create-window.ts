@@ -91,6 +91,10 @@ const createWindow = (
     )
   })
 
+  ipcMain.on('goto_home', () => {
+    win.webContents.goBack()
+  })
+
   win.on('close', saveState)
 
   return win
