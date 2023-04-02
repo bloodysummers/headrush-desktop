@@ -19,8 +19,6 @@ const createWindow = (
     width: options.width,
     height: options.height
   }
-  let state = {}
-  let win
 
   const restore = () => store.get(key, defaultSize)
 
@@ -71,7 +69,7 @@ const createWindow = (
     store.set(key, state)
   }
 
-  state = ensureVisibleOnSomeDisplay(restore())
+  const state = ensureVisibleOnSomeDisplay(restore())
 
   const browserOptions: BrowserWindowConstructorOptions = {
     ...state,
@@ -82,7 +80,7 @@ const createWindow = (
       ...options.webPreferences
     }
   }
-  win = new BrowserWindow(browserOptions)
+  const win = new BrowserWindow(browserOptions)
 
   ipcMain.on('save_editor_data', (sender, data) => {
     fs.writeFileSync(
@@ -92,6 +90,10 @@ const createWindow = (
   })
 
   ipcMain.on('goto_home', () => {
+    win.webContents.goToIndex(0)
+  })
+
+  ipcMain.on('go_back', () => {
     win.webContents.goBack()
   })
 
