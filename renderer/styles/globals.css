@@ -20,3 +20,8 @@
     @apply bg-neutral-600;
   }
 }
+
+:root {
+  --pedal-width: theme('spacing.24');
+  --pedal-height: theme('spacing.36');
+}

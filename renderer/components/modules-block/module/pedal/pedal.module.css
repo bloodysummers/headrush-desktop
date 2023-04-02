@@ -1,0 +1,158 @@
+.pedal {
+  width: var(--pedal-width);
+  height: var(--pedal-height);
+  margin-bottom: theme('spacing.8');
+  margin-top: theme('spacing.8');
+  margin-left: theme('spacing.4');
+  margin-right: theme('spacing.4');
+  color: theme('colors.white');
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-top: theme('spacing.4');
+  text-overflow:ellipsis;
+  background: theme('colors.neutral.400');
+  border-radius: 6px;
+  transition: 0.3s all;
+  position: relative;
+  top: 0;
+}
+.pedal:hover {
+  background: linear-gradient(to bottom, theme('colors.neutral.100') 0%, theme('colors.neutral.400'));
+}
+.pedal:before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  top: 10px;
+  border-radius: 6px;
+  height: var(--pedal-height);
+  background: theme('colors.neutral.700');
+  transition: 0.3s all;
+  box-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.3), 0 5px 2px rgba(0, 0, 0, 0.5), 0 10px 9px rgba(0, 0, 0.2);
+}
+.pedal:after {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: -6px;
+  width: calc(var(--pedal-width) + 12px);
+  height: theme('spacing.5');
+  background: theme('colors.neutral.300');
+  background: linear-gradient(to right, theme('colors.neutral.200') 0%, theme('colors.neutral.600') 5%, theme('colors.neutral.600') 95%, theme('colors.neutral.200') 100%);
+  z-index:-1;
+  border-radius: 2px;
+}
+
+.pedal-Green {
+  background: theme('colors.green.500');
+  border-top: 1px solid theme('colors.green.200');
+  border-bottom: 1px solid theme('colors.green.200');
+}
+.pedal-Green:hover {
+  background: theme('colors.green.400');
+}
+.pedal-Green:before {
+  background: theme('colors.green.900');
+}
+
+.pedal-Lime {
+  background: theme('colors.lime.500');
+  border-top: 1px solid theme('colors.lime.200');
+  border-bottom: 1px solid theme('colors.lime.200');
+}
+.pedal-Lime:hover {
+  background: theme('colors.lime.400');
+}
+.pedal-Lime:before {
+  background: theme('colors.lime.900');
+}
+
+.pedal-Yellow {
+  background: theme('colors.yellow.500');
+  border-top: 1px solid theme('colors.yellow.200');
+  border-bottom: 1px solid theme('colors.yellow.200');
+}
+.pedal-Yellow:hover {
+  background: theme('colors.yellow.400');
+}
+.pedal-Yellow:before {
+  background: theme('colors.yellow.900');
+}
+
+.pedal-Orange {
+  background: theme('colors.orange.500');
+  border-top: 1px solid theme('colors.orange.200');
+  border-bottom: 1px solid theme('colors.orange.200');
+}
+.pedal-Orange:hover {
+  background: theme('colors.orange.400');
+}
+.pedal-Orange:before {
+  background: theme('colors.orange.900');
+}
+
+.pedal-Red {
+  background: theme('colors.red.500');
+  border-top: 1px solid theme('colors.red.200');
+  border-bottom: 1px solid theme('colors.red.200');
+}
+.pedal-Red:hover {
+  background: theme('colors.red.400');
+}
+.pedal-Red:before {
+  background: theme('colors.red.900');
+}
+
+.pedal-Pink {
+  background: theme('colors.pink.500');
+  border-top: 1px solid theme('colors.pink.200');
+  border-bottom: 1px solid theme('colors.pink.200');
+}
+.pedal-Pink:hover {
+  background: theme('colors.pink.400');
+}
+.pedal-Pink:before {
+  background: theme('colors.pink.900');
+}
+
+.pedal-Purple {
+  background: theme('colors.purple.500');
+  border-top: 1px solid theme('colors.purple.200');
+  border-bottom: 1px solid theme('colors.purple.200');
+}
+.pedal-Purple:hover {
+  background: theme('colors.purple.400');
+}
+.pedal-Purple:before {
+  background: theme('colors.purple.900');
+}
+
+.pedal-Blue {
+  background: theme('colors.blue.500');
+  border-top: 1px solid theme('colors.blue.200');
+  border-bottom: 1px solid theme('colors.blue.200');
+}
+.pedal-Blue:hover {
+  background: theme('colors.blue.400');
+}
+.pedal-Blue:before {
+  background: theme('colors.blue.900');
+}
+
+.pedal-LightBlue {
+  background: theme('colors.lightBlue.500');
+  border-top: 1px solid theme('colors.lightBlue.200');
+  border-bottom: 1px solid theme('colors.lightBlue.200');
+}
+.pedal-LightBlue:hover {
+  background: theme('colors.lightBlue.400');
+}
+.pedal-LightBlue:before {
+  background: theme('colors.lightBlue.900');
+}

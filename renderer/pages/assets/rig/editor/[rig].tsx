@@ -1,10 +1,13 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { RigWithContent } from '@/types/rig'
+import { ipcRenderer } from 'electron'
 import { useRecoilValue } from 'recoil'
-import { editorState } from '@/state/editor'
 import { useQuery } from 'react-query'
-import Module from '@/components/module'
+
+import { Module, RigWithContent } from '@/types/rig'
+import { editorState } from '@/state/editor'
+import Header from '@/components/header'
+import Chain from '@/components/chain'
 
 export default function RigEditor() {
   const router = useRouter()
@@ -28,15 +31,30 @@ export default function RigEditor() {
 
   const rigPatch = rig?.content.data.Patch
   const rigChain = rigPatch?.children.Chain
-  const modules = rigChain?.children
-    ? Object.keys(rigChain.children).filter(
-        element => element.indexOf('ModuleType') > -1
-      )
-    : []
+  const patchElements = rigPatch?.children
+
+  const input = patchElements?.Input
+  const output = patchElements?.Output
+  const mix = patchElements?.Mix
 
   if (isLoading) {
     return <p>Loading...</p>
   }
+
+  const titleDisplay = (router.query.rig as string).replace('.rig', '')
+  const modules = new Array(11).fill('').map((_, i) => `ModuleType${i + 1}`)
+  const modulesWithData: Module[] = modules.map((module, i) => {
+    const chainItem = rigChain?.children[module]
+    const patchItem = rigPatch?.children[chainItem?.string || '']
+    return {
+      order: i + 1,
+      name: module,
+      data: {
+        chain: chainItem,
+        ...patchItem
+      }
+    }
+  })
 
   return (
     <>
@@ -46,24 +64,17 @@ export default function RigEditor() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>Rig Editor</h1>
-        <h2>Rig: {router.query.rig}</h2>
-        <h4>Author: {rig?.author}</h4>
-        <h3>Patch</h3>
-        <div>
-          {modules.map(module => {
-            const chainItem = rigChain?.children[module]
-            const patchItem = rigPatch?.children[chainItem?.string || '']
-            return (
-              <Module
-                key={module}
-                name={chainItem?.string as string}
-                data={patchItem}
-              />
-            )
-          })}
-        </div>
+      <main className="h-screen">
+        <Header
+          title={titleDisplay}
+          backButton={() => ipcRenderer.send('go_back')}
+        />
+        <Chain
+          modules={modulesWithData}
+          input={input}
+          output={output}
+          mix={mix}
+        />
       </main>
     </>
   )
