@@ -4,10 +4,10 @@ const colors = {
   presetYellow: '#EBC83A',
   presetOrange: '#F88D47',
   presetRed: '#EB3D3E',
-  presetMagenta: '#F254FF',
+  presetPink: '#F254FF',
   presetPurple: '#7D00FE',
   presetBlue: '#0F53B6',
-  presetCyan: '#0BC2E1'
+  presetLightBlue: '#0BC2E1'
 }
 
 export default colors
