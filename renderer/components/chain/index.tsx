@@ -1,7 +1,7 @@
 import { Module, RigSetupWithItems } from '@/types/rig'
-import ModulesBlock from '../modules-block'
-import InputBlock from './inputBlock'
-import OutputBlock from './outputBlock'
+import ModulesBlock from './modules-block'
+import InputBlock from './input-block'
+import OutputBlock from './output-block'
 
 export default function Chain({
   modules,

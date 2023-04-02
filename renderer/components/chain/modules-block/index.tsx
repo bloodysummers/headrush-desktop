@@ -1,4 +1,4 @@
-import { Module } from '@/types/rig'
+import { Module, RigSetupWithItems } from '@/types/rig'
 import ModuleUI from './module'
 
 export default function ModulesBlock({
@@ -6,7 +6,7 @@ export default function ModulesBlock({
   mix
 }: {
   modules: Module[]
-  mix: Module[]
+  mix: RigSetupWithItems
 }) {
   const firstRow = modules.slice(0, 5)
   const secondRow = modules.slice(5, 11)
