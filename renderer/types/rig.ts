@@ -22,78 +22,68 @@ export type RigContent = {
 }
 
 export type RigFootswitch = {
-  data: RigFootswitchData
+  data: {
+    Footswitch: RigSetupWithItems
+  }
   info: RigInfo
 }
 
 export type RigPedal1 = {
-  data: RigPedal1Data
+  data: {
+    Pedal1: RigSetupWithItems
+  }
   info: RigInfo
 }
 
 export type RigPedal2 = {
-  data: RigPedal2Data
+  data: {
+    Pedal1: RigSetupWithItems
+  }
   info: RigInfo
 }
 
 export type RigEncoder = {
-  data: RigEncoderData
+  data: {
+    RigEncoder: RigSetupWithItems
+  }
   info: RigInfo
 }
 
 export type RigData = {
-  Patch: RigPatch
+  Patch: RigSetup
 }
-
-export type RigFootswitchData = {
-  Footswitch: {
-    childorder: string[]
-    children: RigChildren
-  }
-}
-
-export type RigChildren = {
-  [key: string]: {
-    type: number
-    value?: number
-    string?: string
-    state?: string
-  }
-}
-
-export type RigPedal1Data = {
-  Pedal1: {
-    childorder: string[]
-    children: RigChildren
-  }
-}
-
-export type RigPedal2Data = {
-  Pedal2: {
-    childorder: string[]
-    children: RigChildren
-  }
-}
-
-export type RigEncoderData = {
-  RigEncoder: {
-    childorder: string[]
-    children: RigChildren
-  }
-}
-
-export type RigPatch = {
+export type RigSetup = {
   childorder: string[]
-  children: RigPatchChildren
+  children: RigChildren
+}
+export type RigChildren = {
+  [key: string]: RigSetupWithItems
 }
 
-export type RigPatchChildren = {
-  [key: string]: {
-    childorder: string[]
-    children: RigChildren
-  }
+export type RigSetupWithItems = {
+  childorder: string[]
+  children: RigItem
+}
+
+export type RigItem = {
+  [key: string]: RigItemData
+}
+
+export type RigItemData = {
+  type: number
+  value?: number
+  string?: string
+  state?: string | boolean
 }
 
 export type RigInfo = {
   version: string
+}
+
+export type Module = {
+  order: number
+  name: string
+  data: {
+    chain: RigItemData
+  } & RigSetupWithItems
 }
