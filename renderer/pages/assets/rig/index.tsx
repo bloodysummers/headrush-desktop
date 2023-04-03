@@ -39,7 +39,7 @@ export default function Rig() {
       <main className="h-screen">
         <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
         <Searchbox onChange={setTerm} value={term} />
-        <RigList data={filteredRigs} href="/assets/rig/editor/" ext=".rig" />
+        <RigList data={filteredRigs} href="/assets/rig/editor/" />
       </main>
     </>
   )

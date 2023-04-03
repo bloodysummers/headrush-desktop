@@ -37,7 +37,7 @@ type GetRigData = {
 export function getRig(data: GetRigData): RigWithContent | RigError {
   if (data.path) {
     try {
-      const fileFullPath = path.resolve(data.path, './Rigs', data.name)
+      const fileFullPath = path.resolve(data.path, './Rigs', `${data.name}.rig`)
       const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
       const rigContent = JSON.parse(rigData.content)
       return {

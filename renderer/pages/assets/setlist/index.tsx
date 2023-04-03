@@ -42,11 +42,7 @@ export default function Setlists() {
           backButton={() => ipcRenderer.send('goto_home')}
         />
         <Searchbox onChange={setTerm} value={term} />
-        <SetlistList
-          data={filteredSetlists}
-          href="/assets/setlist/editor/"
-          ext=".setlist"
-        />
+        <SetlistList data={filteredSetlists} href="/assets/setlist/editor/" />
       </main>
     </>
   )

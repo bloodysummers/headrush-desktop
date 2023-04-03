@@ -46,7 +46,6 @@ export default function RigEditor() {
   const output = patchElements?.Output
   const mix = patchElements?.Mix
 
-  const titleDisplay = rigName?.replace('.rig', '')
   const modules = new Array(11).fill('').map((_, i) => `ModuleType${i + 1}`)
   const modulesWithData: Module[] = modules.map((module, i) => {
     const chainItem = rigChain?.children[module]
@@ -71,7 +70,7 @@ export default function RigEditor() {
       </Head>
       <main className="h-screen">
         <Header
-          title={titleDisplay}
+          title={rigName}
           backButton={() => ipcRenderer.send('go_back')}
         />
         <Chain

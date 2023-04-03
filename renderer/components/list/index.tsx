@@ -1,19 +1,11 @@
 import { useRouter } from 'next/router'
 import ListItem from './list-item'
 
-export default function List({
-  data,
-  href,
-  ext
-}: {
-  data: string[]
-  href: string
-  ext: string
-}) {
+export default function List({ data, href }: { data: string[]; href: string }) {
   const router = useRouter()
 
   const goto = (item: string) => {
-    router.push(`${href}${item}${ext}`)
+    router.push(`${href}${item}`)
   }
 
   return (
