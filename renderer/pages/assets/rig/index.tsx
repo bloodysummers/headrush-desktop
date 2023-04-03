@@ -5,11 +5,14 @@ import { useRecoilValue } from 'recoil'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
 import { EditorData, editorState } from '../../../state/editor'
+import Searchbox from '@/components/searchbox'
+import { useState } from 'react'
 
 export default function Rig() {
   const editorData = useRecoilValue<EditorData>(editorState)
+  const [term, setTerm] = useState('')
 
-  const { isLoading, error, data } = useQuery('rigsList', () =>
+  const { isLoading, error, data } = useQuery<string[]>('rigsList', () =>
     ipcRenderer.invoke('get_rigs', { path: editorData.path })
   )
 
@@ -21,6 +24,10 @@ export default function Rig() {
     return <p>Error</p>
   }
 
+  const filteredRigs = data?.filter(rig =>
+    rig.toLowerCase().includes(term.toLowerCase())
+  )
+
   return (
     <>
       <Head>
@@ -31,7 +38,8 @@ export default function Rig() {
       </Head>
       <main className="h-screen">
         <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
-        <RigList data={data} />
+        <Searchbox onChange={setTerm} value={term} />
+        <RigList data={filteredRigs} />
       </main>
     </>
   )
