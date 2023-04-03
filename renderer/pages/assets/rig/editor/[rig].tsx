@@ -4,7 +4,7 @@ import { ipcRenderer } from 'electron'
 import { useRecoilValue } from 'recoil'
 import { useQuery } from 'react-query'
 
-import { Module, RigWithContent } from '@/types/rig'
+import { Module } from '@/types/rig'
 import { editorState } from '@/state/editor'
 import Header from '@/components/header'
 import Chain from '@/components/chain'
@@ -21,13 +21,22 @@ export default function RigEditor() {
   } = useQuery(
     'rigData',
     () =>
-      fetch(`/api/rig/${rigName}?path=${editorData.path}`).then(
-        res => res.json() as Promise<RigWithContent>
-      ),
+      ipcRenderer.invoke('get_rig', {
+        path: editorData.path,
+        name: rigName
+      }),
     {
       enabled: !!rigName
     }
   )
+
+  if (isLoading) {
+    return <p>Loading...</p>
+  }
+
+  if (error) {
+    return <p>Error</p>
+  }
 
   const rigPatch = rig?.content.data.Patch
   const rigChain = rigPatch?.children.Chain
@@ -36,10 +45,6 @@ export default function RigEditor() {
   const input = patchElements?.Input
   const output = patchElements?.Output
   const mix = patchElements?.Mix
-
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
 
   const titleDisplay = rigName?.replace('.rig', '')
   const modules = new Array(11).fill('').map((_, i) => `ModuleType${i + 1}`)

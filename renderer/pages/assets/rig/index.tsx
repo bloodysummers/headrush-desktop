@@ -10,13 +10,15 @@ export default function Rig() {
   const editorData = useRecoilValue<EditorData>(editorState)
 
   const { isLoading, error, data } = useQuery('rigsList', () =>
-    fetch(`/api/rig?path=${editorData.path}`).then(
-      res => res.json() as Promise<string[]>
-    )
+    ipcRenderer.invoke('get_rigs', { path: editorData.path })
   )
 
   if (isLoading) {
     return <p>Loading...</p>
+  }
+
+  if (error) {
+    return <p>Error</p>
   }
 
   return (

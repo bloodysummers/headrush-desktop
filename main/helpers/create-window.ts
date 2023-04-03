@@ -7,6 +7,8 @@ import {
 import Store from 'electron-store'
 import fs from 'fs'
 import path from 'path'
+import { getRig, getRigs } from '../api/rig'
+import { getSetlists } from '../api/setlist'
 
 const createWindow = (
   windowName: string,
@@ -82,7 +84,7 @@ const createWindow = (
   }
   const win = new BrowserWindow(browserOptions)
 
-  ipcMain.on('save_editor_data', (sender, data) => {
+  ipcMain.on('save_editor_data', (_, data) => {
     fs.writeFileSync(
       path.join(__dirname, `../renderer/data/editor_data.json`),
       JSON.stringify(data)
@@ -95,6 +97,18 @@ const createWindow = (
 
   ipcMain.on('go_back', () => {
     win.webContents.goBack()
+  })
+
+  ipcMain.handle('get_setlists', (_, data) => {
+    return getSetlists(data)
+  })
+
+  ipcMain.handle('get_rigs', (_, data) => {
+    return getRigs(data)
+  })
+
+  ipcMain.handle('get_rig', (_, data) => {
+    return getRig(data)
   })
 
   win.on('close', saveState)
