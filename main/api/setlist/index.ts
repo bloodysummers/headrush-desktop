@@ -14,7 +14,9 @@ type SetlistsData = {
 export function getSetlists(data: SetlistsData): string[] | SetlistError {
   if (data.path) {
     try {
-      return fs.readdirSync(path.resolve(data.path, './Setlists'))
+      return fs
+        .readdirSync(path.resolve(data.path, './Setlists'))
+        .map(setlist => setlist.replace('.setlist', ''))
     } catch (e) {
       return {
         error: SETLISTS_NOT_FOUND

@@ -1,4 +1,4 @@
-export default function RigItem({
+export default function ListItem({
   children,
   onClick
 }: {

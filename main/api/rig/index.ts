@@ -16,7 +16,9 @@ type GetRigsData = {
 export function getRigs(data: GetRigsData): string[] | RigError {
   if (data.path) {
     try {
-      return fs.readdirSync(path.resolve(data.path, './Rigs'))
+      return fs
+        .readdirSync(path.resolve(data.path, './Rigs'))
+        .map(rig => rig.replace('.rig', ''))
     } catch (e) {
       return {
         error: RIGS_NOT_FOUND
