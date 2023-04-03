@@ -2,7 +2,7 @@
   "private": true,
   "name": "my-nextron-app",
   "description": "Desktop application to edit the rigs and setlists of the Headrush amp modelers.",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Luis Díaz <bloodysummers@gmail.com>",
   "main": "app/background.js",
   "scripts": {
