@@ -8,8 +8,8 @@
   color: theme('colors.white');
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 12px;
-  padding-top: theme('spacing.4');
+  font-size: 14px;
+  padding-top: theme('spacing.3');
   text-overflow:ellipsis;
   background: theme('colors.neutral.400');
   border-radius: 6px;
@@ -32,7 +32,7 @@
   height: var(--pedal-height);
   background: theme('colors.neutral.700');
   transition: 0.3s all;
-  box-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.3), 0 5px 2px rgba(0, 0, 0, 0.5), 0 10px 9px rgba(0, 0, 0.2);
+  box-shadow: 0 1px 0 2px rgba(0, 0, 0, 0.3), 0 5px 2px rgba(0, 0, 0, 0.5), 0 5px 9px rgba(0, 0, 0.2);
 }
 .pedal:after {
   display: inline-block;
@@ -62,15 +62,15 @@
 }
 
 .pedal-DarkGreen {
-  background: theme('colors.emerald.500');
-  border-top: 1px solid theme('colors.emerald.200');
-  border-bottom: 1px solid theme('colors.emerald.200');
+  background: theme('colors.lime.500');
+  border-top: 1px solid theme('colors.lime.200');
+  border-bottom: 1px solid theme('colors.lime.200');
 }
 .pedal-DarkGreen:hover {
-  background: theme('colors.emerald.400');
+  background: theme('colors.lime.400');
 }
 .pedal-DarkGreen:before {
-  background: theme('colors.emerald.900');
+  background: theme('colors.lime.900');
 }
 
 .pedal-Yellow {

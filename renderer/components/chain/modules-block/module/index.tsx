@@ -4,10 +4,12 @@ import Pedal from './pedal'
 
 export default function ModuleUI({
   name,
-  data
+  data,
+  onModuleClick
 }: {
   name: string
   data: Module
+  onModuleClick: (module: string) => void
 }) {
   const chain = data?.data?.chain
   const children = data?.data?.children
@@ -16,5 +18,12 @@ export default function ModuleUI({
   }
   const active = children?.On.state as boolean
   const color = children?.Colour.string
-  return <Pedal name={chain?.string} color={color} active={active} />
+  return (
+    <Pedal
+      name={chain?.string}
+      color={color}
+      active={active}
+      onClick={onModuleClick}
+    />
+  )
 }
