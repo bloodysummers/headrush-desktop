@@ -4,14 +4,15 @@ import path from 'path'
 type SetlistError = {
   error: string
 }
-const SETLISTS_NOT_FOUND = 'SETLISTS_NOT_FOUND'
 const MISSING_PATH = 'MISSING_PATH'
+const UNHANDLED_ERROR = 'UNHANDLED_ERROR'
+const SETLISTS_NOT_FOUND = 'SETLISTS_NOT_FOUND'
 
-type SetlistsData = {
+type SetlistData = {
   path: string
 }
 
-export function getSetlists(data: SetlistsData): string[] | SetlistError {
+export function getSetlists(data: SetlistData): string[] | SetlistError {
   if (data.path) {
     try {
       return fs
@@ -20,6 +21,32 @@ export function getSetlists(data: SetlistsData): string[] | SetlistError {
     } catch (e) {
       return {
         error: SETLISTS_NOT_FOUND
+      }
+    }
+  }
+  return {
+    error: MISSING_PATH
+  }
+}
+
+type SetlistsData = {
+  path: string
+  name: string
+}
+
+export function getSetlist(data: SetlistsData): any {
+  if (data.path) {
+    try {
+      const fileFullPath = path.resolve(
+        data.path,
+        './Setlists',
+        `${data.name}.setlist`
+      )
+      const setlistData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
+      return setlistData
+    } catch (e) {
+      return {
+        error: UNHANDLED_ERROR
       }
     }
   }

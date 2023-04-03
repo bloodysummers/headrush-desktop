@@ -1,25 +1,32 @@
+import { ipcRenderer } from 'electron'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { RigWithContent } from '@/types/rig'
+import { Setlist } from '@/types/setlist'
 import { useRecoilValue } from 'recoil'
 import { editorState } from '@/state/editor'
 import { useQuery } from 'react-query'
+import Header from '@/components/header'
+import List from '@/components/list'
+import Searchbox from '@/components/searchbox'
+import { useState } from 'react'
 
 export default function SetlistEditor() {
   const router = useRouter()
   const editorData = useRecoilValue(editorState)
   const setlistName = router.query.setlist as string
+  const [term, setTerm] = useState('')
 
   const {
     isLoading,
     error,
-    data: rig
-  } = useQuery(
-    'rigData',
+    data: setlist
+  } = useQuery<Setlist>(
+    'setlistData',
     () =>
-      fetch(`/api/setlist/${setlistName}?path=${editorData.path}`).then(
-        res => res.json() as Promise<RigWithContent>
-      ),
+      ipcRenderer.invoke('get_setlist', {
+        path: editorData.path,
+        name: setlistName
+      }),
     {
       enabled: !!setlistName
     }
@@ -29,6 +36,14 @@ export default function SetlistEditor() {
     return <p>Loading...</p>
   }
 
+  if (error) {
+    return <p>Error</p>
+  }
+
+  const filteredRigs = setlist?.rig_names.filter(rig =>
+    rig.toLowerCase().includes(term.toLowerCase())
+  )
+
   return (
     <>
       <Head>
@@ -37,9 +52,13 @@ export default function SetlistEditor() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>Setlist Editor</h1>
-        <h2>Setlist: {setlistName}</h2>
+      <main className="h-screen">
+        <Header
+          title={setlistName}
+          backButton={() => ipcRenderer.send('go_back')}
+        />
+        <Searchbox onChange={setTerm} value={term} />
+        <List data={filteredRigs} href="/assets/rig/editor/" />
       </main>
     </>
   )

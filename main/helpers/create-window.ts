@@ -8,7 +8,7 @@ import Store from 'electron-store'
 import fs from 'fs'
 import path from 'path'
 import { getRig, getRigs } from '../api/rig'
-import { getSetlists } from '../api/setlist'
+import { getSetlist, getSetlists } from '../api/setlist'
 
 const createWindow = (
   windowName: string,
@@ -101,6 +101,10 @@ const createWindow = (
 
   ipcMain.handle('get_setlists', (_, data) => {
     return getSetlists(data)
+  })
+
+  ipcMain.handle('get_setlist', (_, data) => {
+    return getSetlist(data)
   })
 
   ipcMain.handle('get_rigs', (_, data) => {

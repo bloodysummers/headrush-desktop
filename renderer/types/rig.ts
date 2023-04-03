@@ -1,7 +1,7 @@
 export type Rig = {
   author: string
   color: number
-  created_at: string
+  created_at: number
   id: string
   order: number
   prog_num: number
