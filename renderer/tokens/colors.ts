@@ -1,6 +1,6 @@
 const colors = {
   presetGreen: '#02E772',
-  presetOlive: '#89D10B',
+  presetDarkGreen: '#89D10B',
   presetYellow: '#EBC83A',
   presetOrange: '#F88D47',
   presetRed: '#EB3D3E',

@@ -1,6 +1,6 @@
 const colors = {
   0: 'presetGreen',
-  1: 'presetOlive',
+  1: 'presetDarkGreen',
   2: 'presetYellow',
   3: 'presetOrange',
   4: 'presetRed',

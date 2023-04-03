@@ -11,7 +11,12 @@ export default function Pedal({
   active: boolean
 }) {
   return (
-    <div className={classNames(styles.pedal, styles[`pedal-${color}`])}>
+    <div
+      className={classNames(
+        styles.pedal,
+        styles[`pedal-${color.replace(' ', '')}`]
+      )}
+    >
       <div className="overflow-hidden text-ellipsis px-2 text-center">
         {name}
       </div>
