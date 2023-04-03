@@ -7,7 +7,7 @@
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
-    "build": "nextron build",
+    "build": "nextron build --win --x64",
     "postinstall": "electron-builder install-app-deps && husky install",
     "semantic-release": "semantic-release",
     "pre-commit": "lint-staged"
