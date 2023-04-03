@@ -41,7 +41,7 @@ export default function RigEditor() {
     return <p>Loading...</p>
   }
 
-  const titleDisplay = (router.query.rig as string).replace('.rig', '')
+  const titleDisplay = rigName?.replace('.rig', '')
   const modules = new Array(11).fill('').map((_, i) => `ModuleType${i + 1}`)
   const modulesWithData: Module[] = modules.map((module, i) => {
     const chainItem = rigChain?.children[module]

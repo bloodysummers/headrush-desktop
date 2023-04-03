@@ -9,10 +9,12 @@ export default function ModuleUI({
   name: string
   data: Module
 }) {
-  if (data.data.chain.string === 'Empty Slot') {
+  const chain = data?.data?.chain
+  const children = data?.data?.children
+  if (chain?.string === 'Empty Slot') {
     return <EmptySlot />
   }
-  const active = data?.data?.children?.On.state as boolean
-  const color = data?.data?.children?.Colour.string
-  return <Pedal name={data.data.chain.string} color={color} active={active} />
+  const active = children?.On.state as boolean
+  const color = children?.Colour.string
+  return <Pedal name={chain?.string} color={color} active={active} />
 }
