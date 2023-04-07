@@ -12,15 +12,21 @@ export default function Pedal({
   name: string
   color: string
   active: boolean
-  onClick: (module: string) => void
+  onClick?: (module: string) => void
 }) {
+  const _onClick = () => {
+    if (onClick) {
+      onClick(name)
+    }
+  }
+
   return (
     <div
-      className={classNames(
-        styles.pedal,
-        styles[`pedal-${color.replace(' ', '')}`]
-      )}
-      onClick={() => onClick(name)}
+      className={classNames(styles.pedal, styles[`pedal-${color}`], {
+        'cursor-pointer': onClick,
+        'cursor-default': !onClick
+      })}
+      onClick={_onClick}
     >
       <Led active={active} />
       <div className="overflow-hidden text-ellipsis px-2 text-center">

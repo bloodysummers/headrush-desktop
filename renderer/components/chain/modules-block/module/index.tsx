@@ -17,7 +17,7 @@ export default function ModuleUI({
     return <EmptySlot />
   }
   const active = children?.On.state as boolean
-  const color = children?.Colour.string
+  const color = children?.Colour.string.replace(' ', '')
   return (
     <Pedal
       name={chain?.string}
