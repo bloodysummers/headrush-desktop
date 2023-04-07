@@ -25,3 +25,14 @@
   --pedal-width: theme('spacing.24');
   --pedal-height: theme('spacing.36');
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 0px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 15px;
+  cursor: ew-resize;
+  background: #FFF;
+  box-shadow: -500px 0 0 500px theme('colors.presetGreen');
+  /* border-radius: 50%; */
+}
