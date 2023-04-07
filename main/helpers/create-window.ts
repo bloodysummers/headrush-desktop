@@ -9,6 +9,7 @@ import fs from 'fs'
 import path from 'path'
 import { getRig, getRigs } from '../api/rig'
 import { getSetlist, getSetlists } from '../api/setlist'
+import { getBlock, getBlocks } from '../api/block'
 
 const createWindow = (
   windowName: string,
@@ -113,6 +114,14 @@ const createWindow = (
 
   ipcMain.handle('get_rig', (_, data) => {
     return getRig(data)
+  })
+
+  ipcMain.handle('get_blocks', (_, data) => {
+    return getBlocks(data)
+  })
+
+  ipcMain.handle('get_block', (_, data) => {
+    return getBlock(data)
   })
 
   win.on('close', saveState)
