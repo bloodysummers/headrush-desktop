@@ -22,7 +22,9 @@ export default function Fader({
   }
   return (
     <div className="mb-2">
-      <label className="text-white">{label}</label>
+      <label className="text-white text-ellipsis overflow-hidden whitespace-nowrap block">
+        {label}
+      </label>
       <input
         type="range"
         className="overflow-hidden appearance-none bg-neutral-900 h-8 w-full border-neutral-400 border-2 cursor-pointer"
