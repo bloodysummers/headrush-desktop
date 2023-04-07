@@ -17,7 +17,7 @@
   top: 0;
 }
 .pedal:hover {
-  background: linear-gradient(to bottom, theme('colors.neutral.100') 0%, theme('colors.neutral.400'));
+  background: theme('colors.neutral.300');
 }
 .pedal:before {
   display: inline-block;

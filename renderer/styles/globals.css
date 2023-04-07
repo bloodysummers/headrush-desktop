@@ -24,6 +24,8 @@
 :root {
   --pedal-width: theme('spacing.24');
   --pedal-height: theme('spacing.36');
+  --io-width: theme('spacing.14');
+  --io-height: theme('spacing.20');
 }
 
 input[type="range"]::-webkit-slider-thumb {

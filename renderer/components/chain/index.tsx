@@ -16,9 +16,13 @@ export default function Chain({
 }) {
   return (
     <section className="relative" style={{ height: 'calc(100% - 64px)' }}>
-      <InputBlock />
+      <div className="absolute top-12">
+        <InputBlock />
+      </div>
       <ModulesBlock modules={modules} mix={mix} />
-      <OutputBlock />
+      <div className="absolute bottom-12 right-0">
+        <OutputBlock />
+      </div>
     </section>
   )
 }

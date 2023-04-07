@@ -1,7 +1,19 @@
-export default function InputBlock() {
+import classNames from 'classnames'
+import styles from './input-block.module.css'
+
+export default function InputBlock({
+  onClick
+}: {
+  onClick?: (module: string) => void
+}) {
   return (
-    <div className="flex bg-neutral-600 border-neutral-900 w-12 h-20 justify-center items-center text-white absolute top-12 rounded-r-lg">
-      IN
+    <div
+      className={classNames(styles.inputBlock, {
+        'cursor-pointer': onClick,
+        'cursor-default': !onClick
+      })}
+    >
+      <div className="overflow-hidden text-ellipsis px-2 text-center">IN</div>
     </div>
   )
 }

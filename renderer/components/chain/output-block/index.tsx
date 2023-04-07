@@ -1,7 +1,19 @@
-export default function OutputBlock() {
+import classNames from 'classnames'
+import styles from './output-block.module.css'
+
+export default function OutputBlock({
+  onClick
+}: {
+  onClick?: (module: string) => void
+}) {
   return (
-    <div className="flex bg-neutral-600 border-neutral-900 w-12 h-20 justify-center items-center absolute bottom-12 right-0 rounded-l-md drop-shadow-log">
-      <span className="text-white">OUT</span>
+    <div
+      className={classNames(styles.outputBlock, {
+        'cursor-pointer': onClick,
+        'cursor-default': !onClick
+      })}
+    >
+      <div className="overflow-hidden text-ellipsis px-2 text-center">OUT</div>
     </div>
   )
 }
