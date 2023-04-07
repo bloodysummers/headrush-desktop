@@ -10,7 +10,7 @@
   * {
     box-sizing: border-box;
   }
-  ::-moz-selection { /* Code for Firefox */
+  ::-moz-selection {
     color: white;
     @apply bg-slate-600;
   }
