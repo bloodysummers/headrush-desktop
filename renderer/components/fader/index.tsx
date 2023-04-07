@@ -21,11 +21,11 @@ export default function Fader({
     }
   }
   return (
-    <div className="mb-4">
+    <div className="mb-2">
       <label className="text-white">{label}</label>
       <input
         type="range"
-        className="overflow-hidden appearance-none bg-neutral-900 h-8 w-full border-white border-2 cursor-pointer"
+        className="overflow-hidden appearance-none bg-neutral-900 h-8 w-full border-neutral-400 border-2 cursor-pointer"
         min={min}
         max={max}
         step={step}
