@@ -1,6 +1,10 @@
+import { ChangeEvent } from 'react'
+
 type SelectProps = {
   label?: string
   options?: SelectOption[]
+  onChange?: (value: string) => void
+  value?: string
 }
 
 type SelectOption = {
@@ -8,11 +12,24 @@ type SelectOption = {
   label: string
 }
 
-export default function Select({ label, options }: SelectProps) {
+export default function Select({
+  label,
+  options,
+  onChange,
+  value
+}: SelectProps) {
+  const _onChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (onChange) onChange(e.target.value)
+  }
   return (
     <div className="mb-4">
       <label className="text-white">{label}</label>
-      <select className="block w-full bg-neutral-500 text-white uppercase px-4 py-2 pr-8 focus:outline-none focus:shadow-outline">
+      <select
+        className="block w-full bg-neutral-500 text-white uppercase px-4 py-2 pr-8 focus:outline-none focus:shadow-outline"
+        onChange={_onChange}
+        value={value}
+        disabled
+      >
         {options?.map(option => (
           <option
             key={option.value}
