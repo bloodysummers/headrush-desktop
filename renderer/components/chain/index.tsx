@@ -2,6 +2,7 @@ import { Module, RigSetupWithItems } from '@/types/rig'
 import ModulesBlock from './modules-block'
 import InputBlock from './input-block'
 import OutputBlock from './output-block'
+import Cables from './cables'
 
 export default function Chain({
   modules,
@@ -16,6 +17,7 @@ export default function Chain({
 }) {
   return (
     <section className="relative" style={{ height: 'calc(100% - 64px)' }}>
+      <Cables />
       <div className="absolute top-12">
         <InputBlock />
       </div>
