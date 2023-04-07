@@ -21,7 +21,7 @@ export default function SetlistEditor() {
     error,
     data: setlist
   } = useQuery<Setlist>(
-    'setlistData',
+    `setlistData-${setlistName}`,
     () =>
       ipcRenderer.invoke('get_setlist', {
         path: editorData.path,

@@ -19,7 +19,7 @@ export default function RigEditor() {
     error,
     data: rig
   } = useQuery(
-    'rigData',
+    `rigData-${rigName}`,
     () =>
       ipcRenderer.invoke('get_rig', {
         path: editorData.path,
