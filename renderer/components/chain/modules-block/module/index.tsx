@@ -3,6 +3,7 @@ import EmptySlot from './empty-slot'
 import Pedal from './pedal'
 import Amp from './amp'
 import Cab from './cab'
+import ImpulseResponse from './ir'
 
 export default function ModuleUI({
   name,
@@ -29,6 +30,10 @@ export default function ModuleUI({
     const cab2Name = children.CabType2.string.toUpperCase().replaceAll(' ', '-')
     const isDouble = children.Doubling.state
     return <Cab cab1={cabName} cab2={isDouble ? cab2Name : null} />
+  }
+  if (chain?.string === 'IR' || chain?.string === 'IR (1024)') {
+    const isDouble = children.Doubling.state as boolean
+    return <ImpulseResponse double={isDouble} />
   }
   const active = children?.On.state as boolean
   const color = children?.Colour.string.replaceAll(' ', '')
