@@ -14,7 +14,7 @@ export default function ModuleUI({
 }: {
   name: string
   data: Module
-  onModuleClick: (module: string) => void
+  onModuleClick?: (module: string) => void
 }) {
   const chain = data?.data?.chain
   const children = data?.data?.children
