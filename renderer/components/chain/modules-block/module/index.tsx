@@ -4,6 +4,8 @@ import Pedal from './pedal'
 import Amp from './amp'
 import Cab from './cab'
 import ImpulseResponse from './ir'
+import { expressionEffects } from './exp-pedal/helper'
+import ExpressionPedal from './exp-pedal'
 
 export default function ModuleUI({
   name,
@@ -34,6 +36,11 @@ export default function ModuleUI({
   if (chain?.string === 'IR' || chain?.string === 'IR (1024)') {
     const isDouble = children.Doubling.state as boolean
     return <ImpulseResponse double={isDouble} />
+  }
+  if (expressionEffects.includes(chain?.string)) {
+    return (
+      <ExpressionPedal name={chain?.string} onClick={onModuleClick} active />
+    )
   }
   const active = children?.On.state as boolean
   const color = children?.Colour.string.replaceAll(' ', '')
