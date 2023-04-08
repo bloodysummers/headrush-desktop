@@ -3,16 +3,17 @@ import Head from 'next/head'
 import { useQuery } from 'react-query'
 import { useRecoilValue } from 'recoil'
 import Header from '@/components/header'
-import RigList from '@/components/list'
+import RigList from '@/components/rig-list'
 import { EditorData, editorState } from '../../../state/editor'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
+import { Rig as RigType } from '@/types/rig'
 
 export default function Rig() {
   const editorData = useRecoilValue<EditorData>(editorState)
   const [term, setTerm] = useState('')
 
-  const { isLoading, error, data } = useQuery<string[]>('rigsList', () =>
+  const { isLoading, error, data } = useQuery<RigType[]>('rigsList', () =>
     ipcRenderer.invoke('get_rigs', { path: editorData.path })
   )
 
@@ -25,7 +26,7 @@ export default function Rig() {
   }
 
   const filteredRigs = data?.filter(rig =>
-    rig.toLowerCase().includes(term.toLowerCase())
+    rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
   return (

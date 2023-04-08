@@ -1,12 +1,12 @@
 import { ipcRenderer } from 'electron'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Setlist } from '@/types/setlist'
+import { SetlistWithFullRigs } from '@/types/setlist'
 import { useRecoilValue } from 'recoil'
 import { editorState } from '@/state/editor'
 import { useQuery } from 'react-query'
 import Header from '@/components/header'
-import List from '@/components/list'
+import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 
@@ -20,7 +20,7 @@ export default function SetlistEditor() {
     isLoading,
     error,
     data: setlist
-  } = useQuery<Setlist>(
+  } = useQuery<SetlistWithFullRigs>(
     `setlistData-${setlistName}`,
     () =>
       ipcRenderer.invoke('get_setlist', {
@@ -40,8 +40,8 @@ export default function SetlistEditor() {
     return <p>Error</p>
   }
 
-  const filteredRigs = setlist?.rig_names.filter(rig =>
-    rig.toLowerCase().includes(term.toLowerCase())
+  const filteredRigs = setlist?.rigs_data.filter(rig =>
+    rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
   return (
@@ -58,7 +58,7 @@ export default function SetlistEditor() {
           backButton={() => ipcRenderer.send('go_back')}
         />
         <Searchbox onChange={setTerm} value={term} />
-        <List data={filteredRigs} href="/assets/rig/editor/" />
+        <RigList data={filteredRigs} href="/assets/rig/editor/" />
       </main>
     </>
   )

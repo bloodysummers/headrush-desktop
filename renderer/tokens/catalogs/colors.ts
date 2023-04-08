@@ -1,13 +1,13 @@
 const colors = {
-  0: 'presetGreen',
-  1: 'presetDarkGreen',
-  2: 'presetYellow',
-  3: 'presetOrange',
-  4: 'presetRed',
-  5: 'presetPink',
-  6: 'presetPurple',
-  7: 'presetBlue',
-  8: 'presetLightBlue'
+  1: 'presetGreen',
+  2: 'presetDarkGreen',
+  3: 'presetYellow',
+  4: 'presetOrange',
+  5: 'presetRed',
+  6: 'presetPink',
+  7: 'presetPurple',
+  8: 'presetBlue',
+  9: 'presetLightBlue'
 }
 
 export default colors

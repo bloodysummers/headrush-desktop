@@ -12,7 +12,7 @@ export default function Setlists() {
   const editorData = useRecoilValue<EditorData>(editorState)
   const [term, setTerm] = useState('')
 
-  const { isLoading, error, data } = useQuery('rigsList', () =>
+  const { isLoading, error, data } = useQuery('setlistsList', () =>
     ipcRenderer.invoke('get_setlists', { path: editorData.path })
   )
 

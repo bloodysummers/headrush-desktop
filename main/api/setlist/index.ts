@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { Setlist, SetlistWithFullRigs } from '../../../renderer/types/setlist'
 
 type SetlistError = {
   error: string
@@ -34,7 +35,9 @@ type SetlistsData = {
   name: string
 }
 
-export function getSetlist(data: SetlistsData): any {
+export function getSetlist(
+  data: SetlistsData
+): SetlistWithFullRigs | SetlistError {
   if (data.path) {
     try {
       const fileFullPath = path.resolve(
@@ -42,7 +45,19 @@ export function getSetlist(data: SetlistsData): any {
         './Setlists',
         `${data.name}.setlist`
       )
-      const setlistData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
+      const setlistData: SetlistWithFullRigs = JSON.parse(
+        fs.readFileSync(fileFullPath, 'utf-8')
+      )
+      const rigs = setlistData.rig_names.map(rig => {
+        const fileFullPath = path.resolve(data.path, './Rigs', `${rig}.rig`)
+        const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
+        delete rigData.content
+        return {
+          name: rig,
+          ...rigData
+        }
+      })
+      setlistData.rigs_data = rigs
       return setlistData
     } catch (e) {
       return {

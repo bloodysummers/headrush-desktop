@@ -1,3 +1,5 @@
+import { Rig } from './rig'
+
 export type Setlist = {
   author: string
   created_at: number
@@ -6,4 +8,8 @@ export type Setlist = {
   rigs: string[]
   version: string
   readonly: boolean
+}
+
+export type SetlistWithFullRigs = Setlist & {
+  rigs_data: Rig[]
 }

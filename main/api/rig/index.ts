@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { RigWithContent } from '../../../renderer/types/rig'
+import { Rig, RigWithContent } from '../../../renderer/types/rig'
 
 type RigError = {
   error: string
@@ -13,12 +13,18 @@ type GetRigsData = {
   path: string
 }
 
-export function getRigs(data: GetRigsData): string[] | RigError {
+export function getRigs(data: GetRigData): Rig[] | RigError {
   if (data.path) {
     try {
-      return fs
-        .readdirSync(path.resolve(data.path, './Rigs'))
-        .map(rig => rig.replace('.rig', ''))
+      return fs.readdirSync(path.resolve(data.path, './Rigs')).map(rig => {
+        const fileFullPath = path.resolve(data.path, './Rigs', rig)
+        const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
+        delete rigData.content
+        return {
+          name: rig.replace('.rig', ''),
+          ...rigData
+        }
+      })
     } catch (e) {
       return {
         error: RIGS_NOT_FOUND

@@ -1,4 +1,5 @@
 export type Rig = {
+  name?: string
   author: string
   color: number
   created_at: number
