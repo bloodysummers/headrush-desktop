@@ -14,7 +14,7 @@ import { revertedColors } from '@/tokens/catalogs/colors'
 
 export default function ModuleModal({ module }: { module: Module }) {
   const editorData = useRecoilValue(editorState)
-  const [editableModule, setEditableModule] = useState(module)
+  const [editableModule, setEditableModule] = useState<Module>()
   const chain = editableModule?.data?.chain
   const childorder = editableModule?.data?.childorder
   const children = editableModule?.data?.children
@@ -65,6 +65,18 @@ export default function ModuleModal({ module }: { module: Module }) {
     setEditableModule(newModule)
   }
 
+  const changeFaderValue = (value: string, name: string) => {
+    const newModule = clone(editableModule)
+    newModule.data.children[name].value = parseFloat(value)
+    setEditableModule(newModule)
+  }
+
+  const changeToggleValue = (value: boolean, name: string) => {
+    const newModule = clone(editableModule)
+    newModule.data.children[name].state = value
+    setEditableModule(newModule)
+  }
+
   return (
     <div>
       <div className="flex p-10">
@@ -98,7 +110,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                       label={`${child}: ${childData.value}`}
                       value={childData.value.toString()}
                       onChange={value => {
-                        console.log({ value })
+                        changeFaderValue(value, child)
                       }}
                     />
                   </div>
@@ -111,7 +123,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                       value={childData.state as boolean}
                       options={['Off', 'On']}
                       onClick={value => {
-                        console.log({ value })
+                        changeToggleValue(value, child)
                       }}
                     />
                   </div>
