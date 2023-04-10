@@ -7,7 +7,7 @@ import RigList from '@/components/rig-list'
 import { EditorData, editorState } from '../../../state/editor'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
-import { Rig as RigType } from '@/types/rig'
+import { Rig, Rig as RigType } from '@/types/rig'
 import { useRouter } from 'next/router'
 import spacing from '@/tokens/spacing'
 
@@ -32,8 +32,8 @@ export default function Rig() {
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
-  const gotoRig = (name: string) => {
-    router.push(`/assets/rig/editor/${name}`)
+  const gotoRig = (rig: Rig) => {
+    router.push(`/assets/rig/editor/${rig.name}`)
   }
 
   return (

@@ -8,7 +8,7 @@ import { useQuery } from 'react-query'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Rig } from '@/types/rig'
 import EditableSetlist from '@/components/editable-setlist'
 import spacing from '@/tokens/spacing'
@@ -38,6 +38,11 @@ export default function SetlistEditor() {
       enabled: !!setlistName
     }
   )
+  const [editableSetlist, setEditableSetlist] = useState(setlist?.rigs_data)
+
+  useEffect(() => {
+    setEditableSetlist(setlist?.rigs_data)
+  }, [setlist])
 
   if (isLoading || loadingSetlist) {
     return <p>Loading...</p>
@@ -51,8 +56,10 @@ export default function SetlistEditor() {
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
-  const onRigClick = (name: string) => {
-    console.log({ name })
+  const onRigClick = (rig: Rig) => {
+    const newItems = [...editableSetlist]
+    newItems.push(rig)
+    setEditableSetlist(newItems)
   }
 
   return (
@@ -81,7 +88,12 @@ export default function SetlistEditor() {
             </div>
           </div>
           <div className="flex-1 h-full">
-            <EditableSetlist items={setlist} />
+            {editableSetlist && (
+              <EditableSetlist
+                items={editableSetlist}
+                setItems={setEditableSetlist}
+              />
+            )}
           </div>
         </div>
       </main>

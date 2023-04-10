@@ -10,27 +10,27 @@ import ListItem from './list-item'
 import { Rig } from '@/types/rig'
 
 export default function EditableSetlist({
-  items
+  items,
+  setItems
 }: {
-  items: SetlistWithFullRigs
+  items: Rig[]
+  setItems: (items: Rig[]) => void
 }) {
-  const [editableItems, setEditableItems] = useState(items.rigs_data)
-
   const handleDrop = (droppedItem: DropResult) => {
     if (!droppedItem.destination) return
-    var updatedList = [...editableItems]
+    var updatedList = [...items]
     const [reorderedItem] = updatedList.splice(droppedItem.source.index, 1)
     updatedList.splice(droppedItem.destination.index, 0, reorderedItem)
-    setEditableItems(updatedList)
+    setItems(updatedList)
   }
 
   const handleDelete = (id: Rig) => {
-    const itemIndex = editableItems.findIndex(item => item.id === id.id)
+    const itemIndex = items.findIndex(item => item.id === id.id)
     if (itemIndex === -1) return
-    const updatedList = [...editableItems]
+    const updatedList = [...items]
     updatedList.splice(itemIndex, 1)
     setTimeout(() => {
-      setEditableItems(updatedList)
+      setItems(updatedList)
     }, 150)
   }
 
@@ -44,7 +44,7 @@ export default function EditableSetlist({
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {editableItems.map((rig, index) => {
+              {items.map((rig, index) => {
                 return (
                   <Draggable key={rig.id} draggableId={rig.id} index={index}>
                     {provided => (

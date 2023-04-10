@@ -10,6 +10,7 @@ import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 import spacing from '@/tokens/spacing'
+import { Rig } from '@/types/rig'
 
 export default function SetlistEditor() {
   const router = useRouter()
@@ -45,8 +46,8 @@ export default function SetlistEditor() {
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
-  const onRigClick = (name: string) => {
-    router.push(`/assets/rig/editor/${name}`)
+  const onRigClick = (rig: Rig) => {
+    router.push(`/assets/rig/editor/${rig.name}`)
   }
 
   return (
