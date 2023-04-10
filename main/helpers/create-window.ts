@@ -8,7 +8,7 @@ import Store from 'electron-store'
 import fs from 'fs'
 import path from 'path'
 import { getRig, getRigs } from '../api/rig'
-import { getSetlist, getSetlists } from '../api/setlist'
+import { getSetlist, getSetlists, removeSetlist } from '../api/setlist'
 import { getBlock, getBlocks } from '../api/block'
 
 const createWindow = (
@@ -108,6 +108,10 @@ const createWindow = (
     return getSetlist(data)
   })
 
+  ipcMain.handle('remove_setlist', (_, data) => {
+    return removeSetlist(data)
+  })
+
   ipcMain.handle('get_rigs', (_, data) => {
     return getRigs(data)
   })
@@ -122,6 +126,10 @@ const createWindow = (
 
   ipcMain.handle('get_block', (_, data) => {
     return getBlock(data)
+  })
+
+  ipcMain.handle('refresh', () => {
+    win.webContents.reload()
   })
 
   win.on('close', saveState)

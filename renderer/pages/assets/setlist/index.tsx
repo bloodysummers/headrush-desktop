@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { EditorData, editorState } from '@/state/editor'
 import Header from '@/components/header'
 import Searchbox from '@/components/searchbox'
-import SetlistList from '@/components/list'
+import SetlistList from '@/components/setlist-list'
 
 export default function Setlists() {
   const editorData = useRecoilValue<EditorData>(editorState)

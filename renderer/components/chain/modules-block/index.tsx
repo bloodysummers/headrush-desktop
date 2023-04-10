@@ -3,7 +3,7 @@ import ModuleModal from '@/components/module-modal'
 import { Module, RigSetupWithItems } from '@/types/rig'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Modal from '../modal'
+import Modal from '../../modal'
 import ModuleUI from './module'
 
 export default function ModulesBlock({

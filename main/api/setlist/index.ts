@@ -9,11 +9,11 @@ const MISSING_PATH = 'MISSING_PATH'
 const UNHANDLED_ERROR = 'UNHANDLED_ERROR'
 const SETLISTS_NOT_FOUND = 'SETLISTS_NOT_FOUND'
 
-type SetlistData = {
+type SetlistsData = {
   path: string
 }
 
-export function getSetlists(data: SetlistData): string[] | SetlistError {
+export function getSetlists(data: SetlistsData): string[] | SetlistError {
   if (data.path) {
     try {
       return fs
@@ -30,13 +30,13 @@ export function getSetlists(data: SetlistData): string[] | SetlistError {
   }
 }
 
-type SetlistsData = {
+type SetlistData = {
   path: string
   name: string
 }
 
 export function getSetlist(
-  data: SetlistsData
+  data: SetlistData
 ): SetlistWithFullRigs | SetlistError {
   if (data.path) {
     try {
@@ -60,6 +60,24 @@ export function getSetlist(
       })
       setlistData.rigs_data = rigs
       return setlistData
+    } catch (e) {
+      return {
+        error: UNHANDLED_ERROR
+      }
+    }
+  }
+  return {
+    error: MISSING_PATH
+  }
+}
+
+export function removeSetlist(data: SetlistData): boolean | SetlistError {
+  if (data.path) {
+    try {
+      fs.unlinkSync(
+        path.resolve(data.path, './Setlists', `${data.name}.setlist`)
+      )
+      return true
     } catch (e) {
       return {
         error: UNHANDLED_ERROR
