@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { SetlistWithFullRigs } from '@/types/setlist'
 import { useRecoilValue } from 'recoil'
 import { editorState } from '@/state/editor'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
@@ -40,6 +40,11 @@ export default function SetlistEditor() {
   )
   const [editableSetlist, setEditableSetlist] = useState(setlist?.rigs_data)
 
+  const removeSetlist = useMutation({
+    mutationFn: async (data: { name: string; setlist: SetlistWithFullRigs }) =>
+      ipcRenderer.invoke('save_setlist', { path: editorData.path, data })
+  })
+
   useEffect(() => {
     setEditableSetlist(setlist?.rigs_data)
   }, [setlist])
@@ -62,6 +67,20 @@ export default function SetlistEditor() {
     setEditableSetlist(newItems)
   }
 
+  const onSave = () => {
+    const newSetlist: SetlistWithFullRigs = {
+      ...setlist
+    }
+    newSetlist.rigs_data = editableSetlist
+    newSetlist.rig_names = editableSetlist.map(rig => rig.name)
+    newSetlist.rigs = editableSetlist.map(rig => rig.id)
+
+    removeSetlist.mutate({
+      name: setlistName,
+      setlist: newSetlist
+    })
+  }
+
   return (
     <>
       <Head>
@@ -74,6 +93,10 @@ export default function SetlistEditor() {
         <Header
           title={setlistName}
           backButton={() => ipcRenderer.send('go_back')}
+          cta={{
+            text: 'Save',
+            onClick: onSave
+          }}
         />
         <div
           className="flex flex-row"

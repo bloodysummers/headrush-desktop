@@ -88,3 +88,31 @@ export function removeSetlist(data: SetlistData): boolean | SetlistError {
     error: MISSING_PATH
   }
 }
+
+type SaveSetlistData = {
+  path: string
+  data: {
+    name: string
+    setlist: SetlistWithFullRigs
+  }
+}
+
+export function saveSetlist(data: SaveSetlistData): boolean | SetlistError {
+  if (data.path) {
+    try {
+      delete data.data.setlist.rigs_data
+      fs.writeFileSync(
+        path.resolve(data.path, './Setlists', `${data.data.name}.setlist`),
+        JSON.stringify(data.data.setlist)
+      )
+      return true
+    } catch (e) {
+      return {
+        error: UNHANDLED_ERROR
+      }
+    }
+  }
+  return {
+    error: MISSING_PATH
+  }
+}
