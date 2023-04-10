@@ -24,17 +24,17 @@ export default function ModuleUI({
   if (chain?.string === 'Amp') {
     const ampName = children.Type.string.toUpperCase().replaceAll(' ', '-')
     const amp2Name = children.Type2.string.toUpperCase().replaceAll(' ', '-')
-    const isDouble = children.Doubling.state
+    const isDouble = children.Doubling?.state
     return <Amp amp1={ampName} amp2={isDouble ? amp2Name : null} />
   }
   if (chain?.string === 'Cab') {
     const cabName = children.CabType.string.toUpperCase().replaceAll(' ', '-')
     const cab2Name = children.CabType2.string.toUpperCase().replaceAll(' ', '-')
-    const isDouble = children.Doubling.state
+    const isDouble = children.Doubling?.state
     return <Cab cab1={cabName} cab2={isDouble ? cab2Name : null} />
   }
   if (chain?.string === 'IR' || chain?.string === 'IR (1024)') {
-    const isDouble = children.Doubling.state as boolean
+    const isDouble = children.Doubling?.state as boolean
     return <ImpulseResponse double={isDouble} />
   }
   if (expressionEffects.includes(chain?.string)) {
