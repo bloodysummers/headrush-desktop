@@ -3,6 +3,7 @@ import ModulesBlock from './modules-block'
 import InputBlock from './input-block'
 import OutputBlock from './output-block'
 import Cables from './cables'
+import spacing from '@/tokens/spacing'
 
 export default function Chain({
   modules,
@@ -16,7 +17,10 @@ export default function Chain({
   mix: RigSetupWithItems
 }) {
   return (
-    <section className="relative" style={{ height: 'calc(100% - 64px)' }}>
+    <section
+      className="relative"
+      style={{ height: `calc(100% - ${spacing.headerHeight}px)` }}
+    >
       <Cables />
       <div className="absolute top-12">
         <InputBlock />

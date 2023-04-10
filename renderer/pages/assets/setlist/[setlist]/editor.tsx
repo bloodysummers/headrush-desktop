@@ -10,6 +10,8 @@ import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 import { Rig } from '@/types/rig'
+import EditableSetlist from '@/components/editable-setlist'
+import spacing from '@/tokens/spacing'
 
 export default function SetlistEditor() {
   const router = useRouter()
@@ -66,12 +68,21 @@ export default function SetlistEditor() {
           title={setlistName}
           backButton={() => ipcRenderer.send('go_back')}
         />
-        <div className="flex flex-row" style={{ height: 'calc(100% - 112px)' }}>
+        <div
+          className="flex flex-row"
+          style={{ height: `calc(100% - ${spacing.headerHeight}px)` }}
+        >
           <div className="flex-1">
             <Searchbox onChange={setTerm} value={term} />
-            <RigList data={filteredRigs} onClick={onRigClick} />
+            <div
+              style={{ height: `calc(100% - ${spacing.searchBoxHeight}px)` }}
+            >
+              <RigList data={filteredRigs} onClick={onRigClick} />
+            </div>
           </div>
-          <div className="flex-1">Hey</div>
+          <div className="flex-1 h-full">
+            <EditableSetlist items={setlist} />
+          </div>
         </div>
       </main>
     </>

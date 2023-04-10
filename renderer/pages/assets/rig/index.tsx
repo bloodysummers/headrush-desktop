@@ -9,6 +9,7 @@ import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 import { Rig as RigType } from '@/types/rig'
 import { useRouter } from 'next/router'
+import spacing from '@/tokens/spacing'
 
 export default function Rig() {
   const router = useRouter()
@@ -46,7 +47,13 @@ export default function Rig() {
       <main className="h-screen">
         <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
         <Searchbox onChange={setTerm} value={term} />
-        <div style={{ height: 'calc(100% - 112px)' }}>
+        <div
+          style={{
+            height: `calc(100% - ${
+              spacing.headerHeight + spacing.searchBoxHeight
+            }px)`
+          }}
+        >
           <RigList data={filteredRigs} onClick={gotoRig} />
         </div>
       </main>

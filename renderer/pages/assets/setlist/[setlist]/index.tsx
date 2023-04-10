@@ -9,6 +9,7 @@ import Header from '@/components/header'
 import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
+import spacing from '@/tokens/spacing'
 
 export default function SetlistEditor() {
   const router = useRouter()
@@ -62,7 +63,13 @@ export default function SetlistEditor() {
           backButton={() => ipcRenderer.send('go_back')}
         />
         <Searchbox onChange={setTerm} value={term} />
-        <div style={{ height: 'calc(100% - 112px)' }}>
+        <div
+          style={{
+            height: `calc(100% - ${
+              spacing.headerHeight + spacing.searchBoxHeight
+            }px)`
+          }}
+        >
           <RigList data={filteredRigs} onClick={onRigClick} />
         </div>
       </main>

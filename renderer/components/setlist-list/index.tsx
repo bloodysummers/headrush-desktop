@@ -8,6 +8,7 @@ import { useMutation } from 'react-query'
 import { ipcRenderer } from 'electron'
 import { useRecoilValue } from 'recoil'
 import { EditorData, editorState } from '@/state/editor'
+import spacing from '@/tokens/spacing'
 
 export default function SetlistList({
   data,
@@ -43,7 +44,11 @@ export default function SetlistList({
   return (
     <ul
       className="overflow-y-auto scrollbar-thin scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md"
-      style={{ height: 'calc(100% - 112px)' }}
+      style={{
+        height: `calc(100% - ${
+          spacing.headerHeight + spacing.searchBoxHeight
+        }px)`
+      }}
     >
       {data &&
         data.map(item => (
