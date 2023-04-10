@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { Setlist, SetlistWithFullRigs } from '../../../renderer/types/setlist'
+import { uuid } from 'uuidv4'
 
 type SetlistError = {
   error: string
@@ -86,6 +87,37 @@ export function removeSetlist(data: SetlistData): boolean | SetlistError {
   }
   return {
     error: MISSING_PATH
+  }
+}
+
+type NewSetlistData = {
+  path: string
+  name: string
+  author: string
+}
+
+export function newSetlist(data: NewSetlistData): string | SetlistError {
+  if (data.path) {
+    try {
+      const setlist: Setlist = {
+        author: data.author,
+        created_at: Date.now(),
+        id: uuid(),
+        rig_names: [],
+        rigs: [],
+        version: '',
+        readonly: false
+      }
+      fs.writeFileSync(
+        path.resolve(data.path, './Setlists', `${data.name}.setlist`),
+        JSON.stringify(setlist)
+      )
+      return data.name
+    } catch (e) {
+      return {
+        error: UNHANDLED_ERROR
+      }
+    }
   }
 }
 

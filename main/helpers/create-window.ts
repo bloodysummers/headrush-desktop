@@ -11,6 +11,7 @@ import { getRig, getRigs } from '../api/rig'
 import {
   getSetlist,
   getSetlists,
+  newSetlist,
   removeSetlist,
   saveSetlist
 } from '../api/setlist'
@@ -115,6 +116,10 @@ const createWindow = (
 
   ipcMain.handle('remove_setlist', (_, data) => {
     return removeSetlist(data)
+  })
+
+  ipcMain.handle('new_setlist', (_, data) => {
+    return newSetlist(data)
   })
 
   ipcMain.handle('save_setlist', (_, data) => {

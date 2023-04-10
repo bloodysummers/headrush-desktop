@@ -18,7 +18,8 @@
     "electron-store": "^8.1.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-query": "^3.39.3",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
@@ -28,6 +29,7 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
     "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
     "electron": "^21.3.3",
     "electron-builder": "^23.6.0",

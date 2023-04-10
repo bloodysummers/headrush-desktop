@@ -47,16 +47,17 @@ export default function ModulesBlock({
           )
         })}
       </div>
-      {ReactDOM.createPortal(
-        <Modal show={!!showModal} onClose={() => setShowModal('')}>
-          <ModuleModal
-            module={modules.find(
-              module => module.data.chain?.string === showModal
-            )}
-          />
-        </Modal>,
-        document.body
-      )}
+      {typeof window !== 'undefined' &&
+        ReactDOM.createPortal(
+          <Modal show={!!showModal} onClose={() => setShowModal('')}>
+            <ModuleModal
+              module={modules.find(
+                module => module.data.chain?.string === showModal
+              )}
+            />
+          </Modal>,
+          document.body
+        )}
     </div>
   )
 }

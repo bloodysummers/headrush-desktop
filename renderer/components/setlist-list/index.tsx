@@ -61,16 +61,17 @@ export default function SetlistList({
             {item.replace('.setlist', '')}
           </ListItem>
         ))}
-      {ReactDOM.createPortal(
-        <Modal show={!!showModal} onClose={() => setShowModal('')}>
-          <DeleteModal
-            setlist={showModal}
-            onCancel={() => setShowModal('')}
-            onConfirm={onDeleteClick}
-          />
-        </Modal>,
-        document.body
-      )}
+      {typeof window !== 'undefined' &&
+        ReactDOM.createPortal(
+          <Modal show={!!showModal} onClose={() => setShowModal('')}>
+            <DeleteModal
+              setlist={showModal}
+              onCancel={() => setShowModal('')}
+              onConfirm={onDeleteClick}
+            />
+          </Modal>,
+          document.body
+        )}
     </ul>
   )
 }
