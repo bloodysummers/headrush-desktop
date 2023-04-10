@@ -29,7 +29,9 @@ export default function EditableSetlist({
     if (itemIndex === -1) return
     const updatedList = [...editableItems]
     updatedList.splice(itemIndex, 1)
-    setEditableItems(updatedList)
+    setTimeout(() => {
+      setEditableItems(updatedList)
+    }, 150)
   }
 
   return (

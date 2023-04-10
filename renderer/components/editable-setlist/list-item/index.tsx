@@ -2,7 +2,8 @@ import colors from '@/tokens/colors'
 import colorsCatalog from '@/tokens/catalogs/colors'
 import { Rig } from '@/types/rig'
 import Image from 'next/image'
-import { MouseEvent } from 'react'
+import { MouseEvent, useState } from 'react'
+import classNames from 'classnames'
 
 export default function ListItem({
   item,
@@ -11,13 +12,22 @@ export default function ListItem({
   item: Rig
   onDelete: () => void
 }) {
+  const [deleting, setDeleting] = useState(false)
   const _onDelete = (e: MouseEvent<HTMLImageElement>) => {
     e.stopPropagation()
+    setDeleting(true)
     if (onDelete) onDelete()
   }
 
   return (
-    <div className="bg-slate-200 text-neutral-900 flex shadow-md rounded-lg">
+    <div
+      className={classNames(
+        'bg-slate-200 text-neutral-900 flex shadow-md rounded-lg transition-all',
+        {
+          'scale-0': deleting
+        }
+      )}
+    >
       <div
         className="w-6 mr-1 rounded-l-md"
         style={{ background: colors[colorsCatalog[item.color]] }}
