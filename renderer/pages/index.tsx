@@ -28,7 +28,6 @@ export default function Home() {
         <title>Headrushfx Editor</title>
         <meta name="description" content="Edit rigs and setlists" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-screen flex flex-row items-center justify-center">
         <div className="bg-neutral-500 content-center p-4 bg-opacity-30">
