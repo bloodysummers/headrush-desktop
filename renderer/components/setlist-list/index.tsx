@@ -4,7 +4,7 @@ import ListItem from './list-item'
 import Modal from '../modal'
 import { useState } from 'react'
 import DeleteModal from './delete-modal'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { ipcRenderer } from 'electron'
 import { useRecoilValue } from 'recoil'
 import { EditorData, editorState } from '@/state/editor'
@@ -19,6 +19,7 @@ export default function SetlistList({
 }) {
   const editorData = useRecoilValue<EditorData>(editorState)
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [showModal, setShowModal] = useState('')
 
   const goto = (item: string) => {
@@ -30,7 +31,7 @@ export default function SetlistList({
       ipcRenderer.invoke('remove_setlist', { path: editorData.path, name }),
     onSuccess: () => {
       setShowModal('')
-      ipcRenderer.invoke('refresh')
+      queryClient.invalidateQueries(['setlistsList'])
     }
   })
 
