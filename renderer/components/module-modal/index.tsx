@@ -4,23 +4,29 @@ import { ipcRenderer } from 'electron'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useRecoilValue } from 'recoil'
-import Pedal from '../chain/modules-block/module/pedal'
 import ColorSelector from '../color-selector'
 import Fader from '../fader'
 import Select from '../select'
 import Toggle from '../toggle'
 import ModuleUI from '../chain/modules-block/module'
+import { clone } from 'lodash'
+import { revertedColors } from '@/tokens/catalogs/colors'
 
 export default function ModuleModal({ module }: { module: Module }) {
   const editorData = useRecoilValue(editorState)
-  const chain = module?.data?.chain
-  const childorder = module?.data?.childorder
-  const children = module?.data?.children
-  const active = children?.On.state as boolean
+  const [editableModule, setEditableModule] = useState(module)
+  const chain = editableModule?.data?.chain
+  const childorder = editableModule?.data?.childorder
+  const children = editableModule?.data?.children
   const color = children?.Colour.string.replaceAll(' ', '')
   const moduleName = chain?.string
   const presetName = children?.PresetName.string
   const [selectValue, setSelectValue] = useState(presetName)
+  useEffect(() => {
+    const newModule = clone(module)
+    setEditableModule(newModule)
+  }, [module])
+
   useEffect(() => {
     setSelectValue(presetName)
   }, [presetName])
@@ -53,11 +59,17 @@ export default function ModuleModal({ module }: { module: Module }) {
       child !== 'On' && child !== 'Colour' && child !== 'PresetName'
   )
 
+  const changeColor = (name: string) => {
+    const newModule = clone(editableModule)
+    newModule.data.children.Colour.string = revertedColors[name]
+    setEditableModule(newModule)
+  }
+
   return (
     <div>
       <div className="flex p-10">
         <div>
-          <ModuleUI name={moduleName} data={module} />
+          <ModuleUI name={moduleName} data={editableModule} />
         </div>
         <div className="flex-1 ml-4 h-72 overflow-y-auto scrollbar-thin scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
           <div className="pr-4">
@@ -108,7 +120,7 @@ export default function ModuleModal({ module }: { module: Module }) {
           </div>
         </div>
       </div>
-      <ColorSelector selected={`preset${color}`} />
+      <ColorSelector selected={`preset${color}`} onSelect={changeColor} />
     </div>
   )
 }

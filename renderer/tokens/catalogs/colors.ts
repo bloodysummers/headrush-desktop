@@ -10,4 +10,16 @@ const colors = {
   9: 'presetLightBlue'
 }
 
+export const revertedColors = {
+  presetGreen: 'Green',
+  presetDarkGreen: 'Dark Green',
+  presetYellow: 'Yellow',
+  presetOrange: 'Orange',
+  presetRed: 'Red',
+  presetPink: 'Pink',
+  presetPurple: 'Purple',
+  presetBlue: 'Blue',
+  presetLightBlue: 'Light Blue'
+}
+
 export default colors

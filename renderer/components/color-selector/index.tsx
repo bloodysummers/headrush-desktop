@@ -1,7 +1,13 @@
 import colors from '@/tokens/colors'
 import classNames from 'classnames'
 
-export default function ColorSelector({ selected }: { selected: string }) {
+export default function ColorSelector({
+  selected,
+  onSelect
+}: {
+  selected: string
+  onSelect: (name: string) => void
+}) {
   return (
     <div>
       {Object.keys(colors).map(name => (
@@ -14,6 +20,7 @@ export default function ColorSelector({ selected }: { selected: string }) {
             }
           )}
           style={{ background: colors[name] }}
+          onClick={() => onSelect(name)}
         />
       ))}
     </div>
