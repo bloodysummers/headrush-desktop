@@ -1,20 +1,35 @@
 import { ipcRenderer } from 'electron'
 import Head from 'next/head'
-import { useQuery } from 'react-query'
+import { useRouter } from 'next/router'
+import { SetlistWithFullRigs } from '@/types/setlist'
 import { useRecoilValue } from 'recoil'
+import { editorState } from '@/state/editor'
+import { useQuery } from 'react-query'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
-import { EditorData, editorState } from '../../../state/editor'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
-import { Rig as RigType } from '@/types/rig'
 
-export default function Rig() {
-  const editorData = useRecoilValue<EditorData>(editorState)
+export default function SetlistEditor() {
+  const router = useRouter()
+  const editorData = useRecoilValue(editorState)
+  const setlistName = router.query.setlist as string
   const [term, setTerm] = useState('')
 
-  const { isLoading, error, data } = useQuery<RigType[]>('rigsList', () =>
-    ipcRenderer.invoke('get_rigs', { path: editorData.path })
+  const {
+    isLoading,
+    error,
+    data: setlist
+  } = useQuery<SetlistWithFullRigs>(
+    `setlistData-${setlistName}`,
+    () =>
+      ipcRenderer.invoke('get_setlist', {
+        path: editorData.path,
+        name: setlistName
+      }),
+    {
+      enabled: !!setlistName
+    }
   )
 
   if (isLoading) {
@@ -25,7 +40,7 @@ export default function Rig() {
     return <p>Error</p>
   }
 
-  const filteredRigs = data?.filter(rig =>
+  const filteredRigs = setlist?.rigs_data.filter(rig =>
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
@@ -38,7 +53,10 @@ export default function Rig() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="h-screen">
-        <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
+        <Header
+          title={setlistName}
+          backButton={() => ipcRenderer.send('go_back')}
+        />
         <Searchbox onChange={setTerm} value={term} />
         <div style={{ height: 'calc(100% - 112px)' }}>
           <RigList data={filteredRigs} href="/assets/rig/editor/" />

@@ -57,8 +57,13 @@ export default function SetlistEditor() {
           title={setlistName}
           backButton={() => ipcRenderer.send('go_back')}
         />
-        <Searchbox onChange={setTerm} value={term} />
-        <RigList data={filteredRigs} href="/assets/rig/editor/" />
+        <div className="flex flex-row" style={{ height: 'calc(100% - 112px)' }}>
+          <div className="flex-1">
+            <Searchbox onChange={setTerm} value={term} />
+            <RigList data={filteredRigs} href="/assets/rig/editor/" />
+          </div>
+          <div className="flex-1">Hey</div>
+        </div>
       </main>
     </>
   )

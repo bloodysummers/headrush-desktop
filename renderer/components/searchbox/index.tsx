@@ -25,7 +25,7 @@ export default function Searchbox({ onChange, value }: SearchboxProps) {
         type="text"
         placeholder="Search"
         autoFocus
-        className="bg-black h-12 w-screen pl-12 text-white outline-none"
+        className="bg-black h-12 w-full pl-12 text-white outline-none"
         onChange={_onChange}
         value={value}
       />

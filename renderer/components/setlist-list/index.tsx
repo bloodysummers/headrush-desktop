@@ -50,9 +50,7 @@ export default function SetlistList({
           <ListItem
             key={item}
             onClick={() => goto(item)}
-            onEdit={() => {
-              console.log('Edit')
-            }}
+            onEdit={() => goto(`${item}/editor`)}
             onDelete={() => setShowModal(item)}
           >
             {item.replace('.setlist', '')}

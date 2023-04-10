@@ -16,10 +16,7 @@ export default function RigList({
   }
 
   return (
-    <ul
-      className="overflow-y-auto scrollbar-thin scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md"
-      style={{ height: 'calc(100% - 112px)' }}
-    >
+    <ul className="overflow-y-auto scrollbar-thin h-full scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
       {data &&
         data.map(item => (
           <ListItem
