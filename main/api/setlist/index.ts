@@ -49,11 +49,12 @@ export function getSetlist(
         fs.readFileSync(fileFullPath, 'utf-8')
       )
       const rigs = setlistData.rig_names.map(rig => {
-        const fileFullPath = path.resolve(data.path, './Rigs', `${rig}.rig`)
+        const rigName = rig.replaceAll("'", '_')
+        const fileFullPath = path.resolve(data.path, './Rigs', `${rigName}.rig`)
         const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
         delete rigData.content
         return {
-          name: rig,
+          name: rigName,
           ...rigData
         }
       })
