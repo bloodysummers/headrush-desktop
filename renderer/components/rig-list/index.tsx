@@ -4,16 +4,12 @@ import { Rig } from '@/types/rig'
 
 export default function RigList({
   data,
-  href
+  onClick
 }: {
   data: Rig[]
-  href?: string
+  onClick?: (item: string) => void
 }) {
   const router = useRouter()
-
-  const goto = (item: string) => {
-    if (href) router.push(`${href}${item}`)
-  }
 
   return (
     <ul className="overflow-y-auto scrollbar-thin h-full scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
@@ -21,7 +17,7 @@ export default function RigList({
         data.map(item => (
           <ListItem
             key={item.name}
-            onClick={() => goto(item.name)}
+            onClick={() => onClick(item.name)}
             color={item.color}
           >
             {item.name}

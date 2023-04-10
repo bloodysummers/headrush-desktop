@@ -8,8 +8,10 @@ import { EditorData, editorState } from '../../../state/editor'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 import { Rig as RigType } from '@/types/rig'
+import { useRouter } from 'next/router'
 
 export default function Rig() {
+  const router = useRouter()
   const editorData = useRecoilValue<EditorData>(editorState)
   const [term, setTerm] = useState('')
 
@@ -29,6 +31,10 @@ export default function Rig() {
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
+  const gotoRig = (name: string) => {
+    router.push(`/assets/rig/editor/${name}`)
+  }
+
   return (
     <>
       <Head>
@@ -41,7 +47,7 @@ export default function Rig() {
         <Header title="Rigs" backButton={() => ipcRenderer.send('goto_home')} />
         <Searchbox onChange={setTerm} value={term} />
         <div style={{ height: 'calc(100% - 112px)' }}>
-          <RigList data={filteredRigs} href="/assets/rig/editor/" />
+          <RigList data={filteredRigs} onClick={gotoRig} />
         </div>
       </main>
     </>

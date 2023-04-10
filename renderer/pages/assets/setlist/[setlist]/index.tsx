@@ -44,6 +44,10 @@ export default function SetlistEditor() {
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
+  const onRigClick = (name: string) => {
+    router.push(`/assets/rig/editor/${name}`)
+  }
+
   return (
     <>
       <Head>
@@ -59,7 +63,7 @@ export default function SetlistEditor() {
         />
         <Searchbox onChange={setTerm} value={term} />
         <div style={{ height: 'calc(100% - 112px)' }}>
-          <RigList data={filteredRigs} href="/assets/rig/editor/" />
+          <RigList data={filteredRigs} onClick={onRigClick} />
         </div>
       </main>
     </>

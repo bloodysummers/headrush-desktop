@@ -9,6 +9,7 @@ import Header from '@/components/header'
 import RigList from '@/components/rig-list'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
+import { Rig } from '@/types/rig'
 
 export default function SetlistEditor() {
   const router = useRouter()
@@ -16,9 +17,13 @@ export default function SetlistEditor() {
   const setlistName = router.query.setlist as string
   const [term, setTerm] = useState('')
 
+  const { isLoading, error, data } = useQuery<Rig[]>('rigsList', () =>
+    ipcRenderer.invoke('get_rigs', { path: editorData.path })
+  )
+
   const {
-    isLoading,
-    error,
+    isLoading: loadingSetlist,
+    error: errorSetlist,
     data: setlist
   } = useQuery<SetlistWithFullRigs>(
     `setlistData-${setlistName}`,
@@ -32,17 +37,21 @@ export default function SetlistEditor() {
     }
   )
 
-  if (isLoading) {
+  if (isLoading || loadingSetlist) {
     return <p>Loading...</p>
   }
 
-  if (error) {
+  if (error || errorSetlist) {
     return <p>Error</p>
   }
 
-  const filteredRigs = setlist?.rigs_data.filter(rig =>
+  const filteredRigs = data?.filter(rig =>
     rig.name.toLowerCase().includes(term.toLowerCase())
   )
+
+  const onRigClick = (name: string) => {
+    console.log({ name })
+  }
 
   return (
     <>
@@ -60,7 +69,7 @@ export default function SetlistEditor() {
         <div className="flex flex-row" style={{ height: 'calc(100% - 112px)' }}>
           <div className="flex-1">
             <Searchbox onChange={setTerm} value={term} />
-            <RigList data={filteredRigs} href="/assets/rig/editor/" />
+            <RigList data={filteredRigs} onClick={onRigClick} />
           </div>
           <div className="flex-1">Hey</div>
         </div>
