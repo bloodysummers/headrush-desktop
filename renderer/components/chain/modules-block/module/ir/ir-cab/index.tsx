@@ -1,13 +1,20 @@
 import classNames from 'classnames'
 import styles from './ir-cab.module.css'
 
-export default function ImpulseResponseCab({ mini }: { mini: boolean }) {
+export default function ImpulseResponseCab({
+  mini,
+  onClick
+}: {
+  mini: boolean
+  onClick: () => void
+}) {
   return (
     <div
       className={classNames(
         'hover:brightness-125 cursor-pointer transition-all',
         { 'scale-75': mini }
       )}
+      onClick={onClick}
     >
       <div
         className={classNames(

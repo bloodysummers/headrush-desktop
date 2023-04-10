@@ -14,8 +14,12 @@ export default function ModulesBlock({
   mix: RigSetupWithItems
 }) {
   const [showModal, setShowModal] = useState('')
-  const showModuleModal = (module: string) => {
-    setShowModal(module)
+  const showModuleModal = (
+    module: string,
+    type?: 'Amp' | 'Cab' | 'IR' | 'IR (1024)'
+  ) => {
+    if (!type) setShowModal(module)
+    else setShowModal(type)
   }
 
   const firstRow = modules.slice(0, 5)

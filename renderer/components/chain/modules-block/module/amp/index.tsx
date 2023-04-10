@@ -1,10 +1,26 @@
 import Image from 'next/image'
 import styles from './amp.module.css'
 
-export default function Amp({ amp1, amp2 }: { amp1: string; amp2?: string }) {
+export default function Amp({
+  amp1,
+  amp2,
+  onClick
+}: {
+  amp1: string
+  amp2?: string
+  onClick?: (module: string, type: string) => void
+}) {
+  const _onClick = (amp: string) => {
+    if (onClick) {
+      onClick(amp, 'Amp')
+    }
+  }
   return (
     <div className="flex flex-col w-24 items-center justify-center mx-4">
-      <div className="hover:brightness-125 cursor-pointer transition-all">
+      <div
+        className="hover:brightness-125 cursor-pointer transition-all"
+        onClick={() => _onClick(amp1)}
+      >
         <Image
           src={`/img/amps/${amp1}.png`}
           width={96}
@@ -14,7 +30,10 @@ export default function Amp({ amp1, amp2 }: { amp1: string; amp2?: string }) {
         />
       </div>
       {amp2 && (
-        <div className="hover:brightness-125 cursor-pointer transition-all">
+        <div
+          className="hover:brightness-125 cursor-pointer transition-all"
+          onClick={() => _onClick(amp2)}
+        >
           <Image
             src={`/img/amps/${amp2}.png`}
             width={96}
