@@ -49,7 +49,6 @@ export default function ModuleUI({
     )
   }
   if (chain?.string === 'IR' || chain?.string === 'IR (1024)') {
-    debugger
     const irName = children.IR?.string
     const ir2Name = children.IR2?.string
     const isDouble = children.Doubling?.state as boolean
