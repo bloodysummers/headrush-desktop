@@ -11,16 +11,21 @@ import Toggle from '../toggle'
 import ModuleUI from '../chain/modules-block/module'
 import { clone } from 'lodash'
 import { revertedColors } from '@/tokens/catalogs/colors'
+import { modulesConfig } from '@/config/modules'
+import classNames from 'classnames'
 
 export default function ModuleModal({ module }: { module: Module }) {
   const editorData = useRecoilValue(editorState)
   const [editableModule, setEditableModule] = useState<Module>()
   const chain = editableModule?.data?.chain
-  const childorder = editableModule?.data?.childorder
   const children = editableModule?.data?.children
   const color = children?.Colour.string.replaceAll(' ', '')
   const moduleName = chain?.string
   const presetName = children?.PresetName.string
+  const moduleConfig = modulesConfig?.[moduleName]
+    ? Object.entries(modulesConfig[moduleName])
+    : []
+
   const [selectValue, setSelectValue] = useState(presetName)
   useEffect(() => {
     const newModule = clone(module)
@@ -30,6 +35,7 @@ export default function ModuleModal({ module }: { module: Module }) {
   useEffect(() => {
     setSelectValue(presetName)
   }, [presetName])
+
   const { data: blocks } = useQuery(
     'blocksData',
     () =>
@@ -54,11 +60,6 @@ export default function ModuleModal({ module }: { module: Module }) {
     }
   )
 
-  const filteredOrder = childorder?.filter(
-    (child: string) =>
-      child !== 'On' && child !== 'Colour' && child !== 'PresetName'
-  )
-
   const changeColor = (name: string) => {
     const newModule = clone(editableModule)
     newModule.data.children.Colour.string = revertedColors[name]
@@ -75,6 +76,13 @@ export default function ModuleModal({ module }: { module: Module }) {
     const newModule = clone(editableModule)
     newModule.data.children[name].state = value
     setEditableModule(newModule)
+  }
+
+  const handleFloating = (value: number, step: number) => {
+    if (step === 0.1) return value.toFixed(1)
+    if (step === 0.01) return value.toFixed(2)
+    if (step === 0.001) return value.toFixed(3)
+    return String(value)
   }
 
   return (
@@ -98,32 +106,46 @@ export default function ModuleModal({ module }: { module: Module }) {
             )}
           </div>
           <div className="flex flex-wrap">
-            {filteredOrder?.map((child: string, index: number) => {
-              const childData = children[child]
-              if (childData.type === 0)
+            {moduleConfig?.map(item => {
+              const [configName, config] = item
+              const type = config.type
+              const label = config.label
+              const childData = children[configName]
+              if (type === 'range')
                 return (
-                  <div key={child} className="w-1/2 pr-4">
+                  <div key={configName} className="w-1/2 pr-4">
                     <Fader
-                      min={1}
-                      max={100}
-                      step={1}
-                      label={`${child}: ${childData.value}`}
+                      min={config.min}
+                      max={config.max}
+                      step={config.step}
+                      label={`${label}: ${handleFloating(
+                        childData.value,
+                        config.step
+                      )}${config.unit}`}
                       value={childData.value.toString()}
                       onChange={value => {
-                        changeFaderValue(value, child)
+                        changeFaderValue(value, configName)
                       }}
                     />
                   </div>
                 )
-              if (childData.type === 1)
+              if (type === 'toggle')
                 return (
-                  <div key={child} className="w-1/2 pr-4">
+                  <div
+                    key={configName}
+                    className={classNames('pr-4', {
+                      'w-full': config.w === 8,
+                      'w-1/2': config.w === 4 || !config.w,
+                      'w-1/4': config.w === 2,
+                      'w-1/8': config.w === 1
+                    })}
+                  >
                     <Toggle
-                      label={child}
+                      label={label}
                       value={childData.state as boolean}
-                      options={['Off', 'On']}
+                      options={[config.off, config.on]}
                       onClick={value => {
-                        changeToggleValue(value, child)
+                        changeToggleValue(value, configName)
                       }}
                     />
                   </div>
