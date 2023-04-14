@@ -34,7 +34,7 @@ const SmartHarm: ModuleConfig = {
     step: 1,
     unit: ' %'
   },
-  PitchVol2: {
+  Pitch2Vol: {
     type: 'range',
     label: 'VC 2 Vol',
     min: -60,

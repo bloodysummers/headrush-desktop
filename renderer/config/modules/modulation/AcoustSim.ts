@@ -1,6 +1,6 @@
 import { ModuleConfig } from '..'
 
-const AcousticSim: ModuleConfig = {
+const AcoustSim: ModuleConfig = {
   Mode: {
     type: 'set',
     label: 'Model',
@@ -32,4 +32,4 @@ const AcousticSim: ModuleConfig = {
   }
 }
 
-export default AcousticSim
+export default AcoustSim

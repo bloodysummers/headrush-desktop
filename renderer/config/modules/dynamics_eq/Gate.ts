@@ -17,7 +17,7 @@ const Gate: ModuleConfig = {
     step: 1,
     unit: ' ms'
   },
-  FilterThreshold: {
+  FilterThreshhold: {
     type: 'range',
     label: 'Filter Threshold',
     min: -120,

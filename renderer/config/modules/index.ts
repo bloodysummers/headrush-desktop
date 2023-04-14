@@ -40,7 +40,7 @@ import FXLoop from './fx_loop/FXLoop'
 import AIRFilter from './modulation/AIRFilter'
 import AIRFlanger from './modulation/AIRFlanger'
 import AIRVibrato from './modulation/AIRVibrato'
-import AcousticSim from './modulation/AcousticSim'
+import AcoustSim from './modulation/AcoustSim'
 import Chorus from './modulation/Chorus'
 import Detune from './modulation/Detune'
 import DimChorus from './modulation/DimChorus'
@@ -158,7 +158,7 @@ export const modulesConfig: ModulesConfig = {
   'Tron Filter': TronFilter,
   'Smart Harm': SmartHarm,
   'Ring Mod': RingMod,
-  'Acoustic Sim': AcousticSim,
+  'Acoust Sim': AcoustSim,
   Detune,
   'Env Filter': EnvFilter,
   'Stereo Doubler': StereoDoubler,

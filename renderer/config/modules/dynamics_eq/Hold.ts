@@ -2,12 +2,12 @@ import { ModuleConfig } from '..'
 
 const Hold: ModuleConfig = {
   // TODO:CHECK
-  Switch: {
-    type: 'toggle',
-    label: 'Hold',
-    off: 'Off',
-    on: 'On'
-  },
+  // Switch: {
+  //   type: 'toggle',
+  //   label: 'Hold',
+  //   off: 'Off',
+  //   on: 'On'
+  // },
   Mix: {
     type: 'range',
     label: 'Mix',
