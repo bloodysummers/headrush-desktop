@@ -98,12 +98,15 @@ type ToggleConfig = {
   label: string
   off: string
   on: string
+  w?: 1 | 2 | 4 | 8
 }
 
 type SetConfig = {
   type: 'set'
   label: string
   values: string[]
+  w?: 1 | 2 | 4 | 8
+  style?: 'dropdown' | 'fader' | 'button'
 }
 
 export const modulesConfig: ModulesConfig = {
@@ -112,7 +115,7 @@ export const modulesConfig: ModulesConfig = {
   'DC Distort': DCDistort,
   'Black OP': BlackOP,
   'Tri Fuzz': TriFuzz,
-  '8-bit Crush': BitCrush,
+  '8-Bit Crush': BitCrush,
   'Anxiety OD': AnxietyOD,
   'Anxiety OD V2': AnxietyODV2,
   'D1 Dist': D1Dist,
@@ -167,7 +170,7 @@ export const modulesConfig: ModulesConfig = {
   'Dyn Delay': DynDelay,
   Shimmer,
   'Reverse Delay': ReverseDelay,
-  'Picth Delay': PitchDelay,
+  'Pitch Delay': PitchDelay,
   'Ambi Verb': AmbiVerb,
   'Reso Delay': ResoDelay,
   'Party Verb': PartyVerb,

@@ -21,42 +21,50 @@ const BitCrush: ModuleConfig = {
   Bit1: {
     type: 'set',
     label: 'Bit1',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit2: {
     type: 'set',
     label: 'Bit2',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit3: {
     type: 'set',
     label: 'Bit3',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit4: {
     type: 'set',
     label: 'Bit4',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit5: {
     type: 'set',
     label: 'Bit5',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit6: {
     type: 'set',
     label: 'Bit6',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit7: {
     type: 'set',
     label: 'Bit7',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Bit8: {
     type: 'set',
     label: 'Bit8',
-    values: crushBit
+    values: crushBit,
+    w: 1
   },
   Drive: {
     type: 'range',
@@ -85,7 +93,21 @@ const BitCrush: ModuleConfig = {
   Mode: {
     type: 'set',
     label: 'Bit Mode',
-    values: ['OFF', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'RECT', 'CUST']
+    values: [
+      'OFF',
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'RECT',
+      'CUST'
+    ],
+    style: 'fader'
   },
   BitGainScale: {
     type: 'range',
@@ -103,7 +125,7 @@ const BitCrush: ModuleConfig = {
     step: 0.001,
     unit: ''
   },
-  Antialiasing: {
+  AntiAliasing: {
     type: 'range',
     label: 'Res Smooth',
     min: 0,
