@@ -21,19 +21,19 @@ export default function Fader({
     }
   }
   return (
-    <div className="mb-2">
-      <label className="text-white text-ellipsis overflow-hidden whitespace-nowrap block">
-        {label}
-      </label>
+    <div className="mb-2 relative">
       <input
         type="range"
-        className="overflow-hidden appearance-none bg-neutral-900 h-8 w-full border-neutral-400 border-2 cursor-pointer"
+        className="overflow-hidden appearance-none bg-neutral-900 h-8 w-full border-neutral-600 border-2 cursor-pointer relative z-10 mix-blend-normal"
         min={min}
         max={max}
         step={step}
         onChange={_onChange}
         value={value}
       />
+      <label className="text-neutral-300 uppercase text-ellipsis overflow-hidden whitespace-nowrap pointer-events-none block absolute leading-7 pl-3 z-20 top-0 mix-blend-difference">
+        {label}
+      </label>
     </div>
   )
 }

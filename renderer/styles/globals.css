@@ -36,4 +36,5 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: ew-resize;
   background: #FFF;
   box-shadow: -500px 0 0 500px theme('colors.presetGreen');
+  background-blend-mode: luminosity;
 }
