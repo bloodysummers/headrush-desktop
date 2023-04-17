@@ -60,6 +60,7 @@ import TronFilter from './modulation/TronFilter'
 import TronPhaser from './modulation/TronPhaser'
 import VibePhaser from './modulation/VibePhaser'
 import Vibrato from './modulation/Vibrato'
+import AIRDelay from './reverb_delay/AIRDelay'
 import AIRReverb from './reverb_delay/AIRReverb'
 import AmbiVerb from './reverb_delay/AmbiVerb'
 import BBDDelay from './reverb_delay/BBDDelay'
@@ -168,6 +169,7 @@ export const modulesConfig: ModulesConfig = {
   'Spring Reverb': SpringReverb,
   'Tape Echo': TapeEcho,
   'BBD Delay': BBDDelay,
+  'AIR Delay': AIRDelay,
   'Dyn Delay': DynDelay,
   Shimmer,
   'Reverse Delay': ReverseDelay,
