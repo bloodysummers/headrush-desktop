@@ -31,7 +31,7 @@ export default function Fader({
         onChange={_onChange}
         value={value}
       />
-      <label className="text-neutral-300 uppercase text-ellipsis overflow-hidden whitespace-nowrap pointer-events-none block absolute leading-7 pl-3 z-20 top-0 mix-blend-difference">
+      <label className="text-neutral-300 text-ellipsis overflow-hidden whitespace-nowrap pointer-events-none block absolute leading-7 pl-3 z-20 top-0 mix-blend-difference">
         {label}
       </label>
     </div>
