@@ -72,6 +72,12 @@ export default function ModuleModal({ module }: { module: Module }) {
     setEditableModule(newModule)
   }
 
+  const changeSetFaderValue = (value: string, name: string) => {
+    const newModule = clone(editableModule)
+    newModule.data.children[name].string = value
+    setEditableModule(newModule)
+  }
+
   const changeToggleValue = (value: boolean, name: string) => {
     const newModule = clone(editableModule)
     newModule.data.children[name].state = value
@@ -106,6 +112,19 @@ export default function ModuleModal({ module }: { module: Module }) {
             )}
           </div>
           <div className="flex flex-wrap">
+            {moduleName === 'Hold' && (
+              <div className="w-1/2 pr-4">
+                <Toggle
+                  label="Switch"
+                  value={false}
+                  options={['Off', 'On']}
+                  onClick={value => {
+                    console.log({ value })
+                  }}
+                />
+              </div>
+            )}
+
             {moduleConfig?.map(item => {
               const [configName, config] = item
               const type = config.type
@@ -118,7 +137,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                       min={config.min}
                       max={config.max}
                       step={config.step}
-                      label={`${label}: ${handleFloating(
+                      label={`${label.toLocaleUpperCase()}: ${handleFloating(
                         childData.value,
                         config.step
                       )}${config.unit}`}
@@ -129,7 +148,36 @@ export default function ModuleModal({ module }: { module: Module }) {
                     />
                   </div>
                 )
-              if (type === 'toggle')
+              if (type === 'toggle') {
+                if (config.style === 'dropdown') {
+                  const options = [
+                    {
+                      label: config.off,
+                      value: 'false'
+                    },
+                    {
+                      label: config.on,
+                      value: 'true'
+                    }
+                  ]
+                  return (
+                    <div
+                      key={configName}
+                      className={classNames('pr-4', {
+                        'w-full': config.w === 8,
+                        'w-1/2': config.w === 4 || !config.w,
+                        'w-1/4': config.w === 2,
+                        'w-1/8': config.w === 1
+                      })}
+                    >
+                      <Select
+                        label={config.label}
+                        options={options}
+                        value={String(childData.state)}
+                      />
+                    </div>
+                  )
+                }
                 return (
                   <div
                     key={configName}
@@ -150,6 +198,52 @@ export default function ModuleModal({ module }: { module: Module }) {
                     />
                   </div>
                 )
+              }
+              if (type === 'set') {
+                if (config.style === 'dropdown') {
+                  const options = config.values.map(value => ({
+                    label: value,
+                    value
+                  }))
+                  const value = childData.string
+                  return (
+                    <div
+                      key={configName}
+                      className={classNames('pr-4', {
+                        'w-full': config.w === 8,
+                        'w-1/2': config.w === 4 || !config.w,
+                        'w-1/4': config.w === 2,
+                        'w-1/8': config.w === 1
+                      })}
+                    >
+                      <Select
+                        options={options}
+                        value={value}
+                        label={config.label}
+                      />
+                    </div>
+                  )
+                }
+                const total = config.values.length
+                const text = childData.string
+                const labelText = `${label}: ${text}`
+                const index = String(config.values.indexOf(text))
+                return (
+                  <div key={configName} className="w-1/2 pr-4">
+                    <Fader
+                      min={0}
+                      max={total - 1}
+                      step={1}
+                      label={labelText.toLocaleUpperCase()}
+                      value={index}
+                      onChange={index => {
+                        const newValue = config.values[index]
+                        if (newValue) changeSetFaderValue(newValue, configName)
+                      }}
+                    />
+                  </div>
+                )
+              }
             })}
           </div>
         </div>
