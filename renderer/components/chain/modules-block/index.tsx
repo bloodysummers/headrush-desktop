@@ -1,5 +1,3 @@
-import ColorSelector from '@/components/color-selector'
-import ModuleModal from '@/components/module-modal'
 import { Module, RigSetupWithItems } from '@/types/rig'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
@@ -8,18 +6,19 @@ import ModuleUI from './module'
 
 export default function ModulesBlock({
   modules,
-  mix
+  mix,
+  showModal
 }: {
   modules: Module[]
   mix: RigSetupWithItems
+  showModal: (name: string) => void
 }) {
-  const [showModal, setShowModal] = useState('')
   const showModuleModal = (
     module: string,
     type?: 'Amp' | 'Cab' | 'IR' | 'IR (1024)'
   ) => {
-    if (!type) setShowModal(module)
-    else setShowModal(type)
+    if (!type) showModal(module)
+    else showModal(type)
   }
 
   const firstRow = modules.slice(0, 5)
@@ -51,17 +50,6 @@ export default function ModulesBlock({
           )
         })}
       </div>
-      {typeof window !== 'undefined' &&
-        ReactDOM.createPortal(
-          <Modal show={!!showModal} onClose={() => setShowModal('')}>
-            <ModuleModal
-              module={modules.find(
-                module => module.data.chain?.string === showModal
-              )}
-            />
-          </Modal>,
-          document.body
-        )}
     </div>
   )
 }
