@@ -4,7 +4,9 @@ const AcoustSim: ModuleConfig = {
   Mode: {
     type: 'set',
     label: 'Model',
-    values: ['Standard', 'Jumbo', 'Enhance', 'Piezo']
+    values: ['Standard', 'Jumbo', 'Enhance', 'Piezo'],
+    w: 8,
+    style: 'dropdown'
   },
   Body: {
     type: 'range',

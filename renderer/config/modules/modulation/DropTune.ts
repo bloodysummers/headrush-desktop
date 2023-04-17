@@ -13,7 +13,9 @@ const DropTune: ModuleConfig = {
       'Down 6',
       'Down 7',
       'Down 8'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Mix: {
     type: 'range',

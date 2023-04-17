@@ -15,7 +15,9 @@ const ChordWham: ModuleConfig = {
       '- 1 Oct',
       '- 2 Oct',
       'Dive'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Pitch: {
     type: 'range',

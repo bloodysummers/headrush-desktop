@@ -14,7 +14,9 @@ const Harm: ModuleConfig = {
       '+ 3rd / 4th',
       '+ 3rd Minor / Major',
       '+ 2nd / 3rd'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Pitch: {
     type: 'range',

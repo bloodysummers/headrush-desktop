@@ -99,6 +99,7 @@ type ToggleConfig = {
   off: string
   on: string
   w?: 1 | 2 | 4 | 8
+  style?: 'dropdown' | 'switch'
 }
 
 type SetConfig = {

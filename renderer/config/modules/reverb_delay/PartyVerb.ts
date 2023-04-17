@@ -26,7 +26,9 @@ const PartyVerb: ModuleConfig = {
       'Random 1',
       'Random 2',
       'Random 3'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Time: {
     type: 'range',

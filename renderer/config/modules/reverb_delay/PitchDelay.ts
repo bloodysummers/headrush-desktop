@@ -32,7 +32,9 @@ const PitchDelay: ModuleConfig = {
       '-11 Semi',
       '-12 Semi',
       '-13 Semi'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Delay: {
     type: 'set',

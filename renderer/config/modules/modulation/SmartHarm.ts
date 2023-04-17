@@ -19,12 +19,16 @@ const SmartHarm: ModuleConfig = {
       'Dim Whl',
       'Pent Mj',
       'Pent Mn'
-    ]
+    ],
+    w: 4,
+    style: 'dropdown'
   },
   Key: {
     type: 'set',
     label: 'Key',
-    values: ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#']
+    values: ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'],
+    w: 4,
+    style: 'dropdown'
   },
   Mix: {
     type: 'range',

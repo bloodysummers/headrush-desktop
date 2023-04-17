@@ -22,49 +22,57 @@ const BitCrush: ModuleConfig = {
     type: 'set',
     label: 'Bit1',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit2: {
     type: 'set',
     label: 'Bit2',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit3: {
     type: 'set',
     label: 'Bit3',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit4: {
     type: 'set',
     label: 'Bit4',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit5: {
     type: 'set',
     label: 'Bit5',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit6: {
     type: 'set',
     label: 'Bit6',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit7: {
     type: 'set',
     label: 'Bit7',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Bit8: {
     type: 'set',
     label: 'Bit8',
     values: crushBit,
-    w: 1
+    w: 1,
+    style: 'button'
   },
   Drive: {
     type: 'range',
@@ -93,21 +101,7 @@ const BitCrush: ModuleConfig = {
   Mode: {
     type: 'set',
     label: 'Bit Mode',
-    values: [
-      'OFF',
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'RECT',
-      'CUST'
-    ],
-    style: 'fader'
+    values: ['OFF', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'RECT', 'CUST']
   },
   BitGainScale: {
     type: 'range',

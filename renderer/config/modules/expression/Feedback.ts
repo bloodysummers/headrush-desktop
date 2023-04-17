@@ -4,7 +4,9 @@ const Feedback: ModuleConfig = {
   Mode: {
     type: 'set',
     label: 'Model',
-    values: ['Unity', '4th', '5th', 'Octave']
+    values: ['Unity', '4th', '5th', 'Octave'],
+    w: 8,
+    style: 'dropdown'
   },
   Volume: {
     type: 'range',

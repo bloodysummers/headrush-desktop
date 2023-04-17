@@ -5,8 +5,11 @@ const DimChorus: ModuleConfig = {
     type: 'toggle',
     label: 'Model',
     off: 'Stomp',
-    on: 'Rack'
+    on: 'Rack',
+    w: 8,
+    style: 'dropdown'
   },
+  // TODO: CHANGE DESIGN
   One: {
     type: 'toggle',
     label: '1',

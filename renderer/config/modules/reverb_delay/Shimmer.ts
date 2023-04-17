@@ -30,6 +30,22 @@ const Shimmer: ModuleConfig = {
     step: 1,
     unit: ' %'
   },
+  HighCut: {
+    type: 'range',
+    label: 'High Cut',
+    min: 500,
+    max: 2000,
+    step: 1,
+    unit: ' Hz'
+  },
+  Width: {
+    type: 'range',
+    label: 'Width',
+    min: 0,
+    max: 100,
+    step: 1,
+    unit: ' %'
+  },
   Mix: {
     type: 'range',
     label: 'Mix',

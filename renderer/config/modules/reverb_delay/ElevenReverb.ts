@@ -30,7 +30,9 @@ const ElevenReverb: ModuleConfig = {
       'Extra Long 2',
       'Early Reflection 1',
       'Early Reflection 2'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Decay: {
     type: 'range',
