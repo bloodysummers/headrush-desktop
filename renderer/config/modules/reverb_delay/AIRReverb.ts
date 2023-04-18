@@ -13,7 +13,9 @@ const AIRReverb: ModuleConfig = {
       'Church',
       'Dense',
       'Ambient'
-    ]
+    ],
+    w: 8,
+    style: 'dropdown'
   },
   Time: {
     type: 'range',

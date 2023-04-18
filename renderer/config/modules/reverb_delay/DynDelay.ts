@@ -73,7 +73,7 @@ const DynDelay: ModuleConfig = {
   EnvFbk: {
     type: 'range',
     label: 'Env 2 Feedback',
-    min: 0,
+    min: -100,
     max: 100,
     step: 1,
     unit: ' %'
