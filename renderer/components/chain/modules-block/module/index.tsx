@@ -10,7 +10,8 @@ import ExpressionPedal from './exp-pedal'
 export default function ModuleUI({
   name,
   data,
-  onModuleClick
+  onModuleClick,
+  showImg
 }: {
   name: string
   data: Module
@@ -18,6 +19,7 @@ export default function ModuleUI({
     module: string,
     type?: 'Amp' | 'Cab' | 'IR' | 'IR (1024)'
   ) => void
+  showImg?: boolean
 }) {
   const chain = data?.data?.chain
   const children = data?.data?.children
@@ -74,6 +76,7 @@ export default function ModuleUI({
       name={chain?.string}
       color={color}
       active={active}
+      showImg={showImg}
       onClick={onModuleClick}
     />
   )
