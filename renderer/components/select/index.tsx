@@ -25,10 +25,9 @@ export default function Select({
     <div className="mb-4">
       <label className="text-white">{label}</label>
       <select
-        className="block w-full bg-neutral-500 text-white uppercase px-4 py-2 pr-8 focus:outline-none focus:shadow-outline"
+        className="block w-full cursor-pointer bg-neutral-700 text-white uppercase px-4 py-1 pr-8 focus:outline-none focus:shadow-outline"
         onChange={_onChange}
         value={value}
-        disabled
       >
         {options?.map(option => (
           <option
