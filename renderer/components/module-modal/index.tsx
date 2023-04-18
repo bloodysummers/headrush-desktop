@@ -21,9 +21,10 @@ export default function ModuleModal({ module }: { module: Module }) {
   const children = editableModule?.data?.children
   const color = children?.Colour.string.replaceAll(' ', '')
   const moduleName = chain?.string
+  const moduleNameWithoutNumber = moduleName?.replaceAll(' 2', '')
   const presetName = children?.PresetName.string
-  const moduleConfig = modulesConfig?.[moduleName]
-    ? Object.entries(modulesConfig[moduleName])
+  const moduleConfig = modulesConfig?.[moduleNameWithoutNumber]
+    ? Object.entries(modulesConfig[moduleNameWithoutNumber])
     : []
 
   const [selectValue, setSelectValue] = useState(presetName)
@@ -41,10 +42,10 @@ export default function ModuleModal({ module }: { module: Module }) {
     () =>
       ipcRenderer.invoke('get_blocks', {
         path: editorData.path,
-        name: moduleName
+        name: moduleNameWithoutNumber
       }),
     {
-      enabled: !!moduleName
+      enabled: !!moduleNameWithoutNumber
     }
   )
   const { data: block, refetch: getPreset } = useQuery(
