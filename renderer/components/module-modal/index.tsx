@@ -11,8 +11,9 @@ import Toggle from '../toggle'
 import ModuleUI from '../chain/modules-block/module'
 import { clone } from 'lodash'
 import { revertedColors } from '@/tokens/catalogs/colors'
-import { modulesConfig } from '@/config/modules'
+import { ModuleConfig, ModuleConfigSet, modulesConfig } from '@/config/modules'
 import classNames from 'classnames'
+import models, { AmpModel } from '@/config/modules/amp/models'
 
 export default function ModuleModal({ module }: { module: Module }) {
   const editorData = useRecoilValue(editorState)
@@ -22,10 +23,42 @@ export default function ModuleModal({ module }: { module: Module }) {
   const color = children?.Colour.string.replaceAll(' ', '')
   const moduleName = chain?.string
   const moduleNameWithoutNumber = moduleName?.replaceAll(' 2', '')
+  const moduleNumber = moduleName?.indexOf(' 2') > -1 ? 2 : 1
   const presetName = children?.PresetName.string
-  const moduleConfig = modulesConfig?.[moduleNameWithoutNumber]
-    ? Object.entries(modulesConfig[moduleNameWithoutNumber])
-    : []
+
+  const filterAmpConfig = (amp: string, moduleNumber: number) => {
+    const config = modulesConfig[moduleNameWithoutNumber]
+    const model =
+      moduleNumber === 1 ? children.Type.string : children.Type2.string
+
+    const modelConfig = models[model]
+    const modelFields: ModuleConfig = Object.entries(modelConfig['1']).reduce(
+      (newC: ModuleConfig, field) => {
+        const [key, label] = field
+        const completeConfig = config[key]
+        const newConfig = {
+          ...completeConfig,
+          type: completeConfig.type,
+          label
+        } as ModuleConfigSet
+        newC[key] = newConfig
+        return newC
+      },
+      {}
+    )
+    return Object.entries(modelFields)
+  }
+
+  const getModuleConfig = (module: string) => {
+    const conf = modulesConfig[module]
+    if (conf) return Object.entries(conf)
+    return []
+  }
+
+  const moduleConfig =
+    moduleNameWithoutNumber === 'Amp'
+      ? filterAmpConfig(moduleNameWithoutNumber, moduleNumber)
+      : getModuleConfig(moduleNameWithoutNumber)
 
   const [selectValue, setSelectValue] = useState(presetName)
   useEffect(() => {
@@ -96,7 +129,11 @@ export default function ModuleModal({ module }: { module: Module }) {
     <div>
       <div className="flex p-10">
         <div className="flex">
-          <ModuleUI name={moduleName} data={editableModule} showImg />
+          <ModuleUI
+            name={moduleNameWithoutNumber}
+            data={editableModule}
+            showImg
+          />
         </div>
         <div className="flex-1 ml-4 h-72 overflow-y-auto scrollbar-thin scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
           <div className="pr-4">
@@ -166,6 +203,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                       key={configName}
                       className={classNames('pr-4', {
                         'w-full': config.w === 8,
+                        'w-3/4': config.w === 6,
                         'w-1/2': config.w === 4 || !config.w,
                         'w-1/4': config.w === 2,
                         'w-1/8': config.w === 1
@@ -184,6 +222,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                     key={configName}
                     className={classNames('pr-4', {
                       'w-full': config.w === 8,
+                      'w-3/4': config.w === 6,
                       'w-1/2': config.w === 4 || !config.w,
                       'w-1/4': config.w === 2,
                       'w-1/8': config.w === 1
@@ -212,6 +251,7 @@ export default function ModuleModal({ module }: { module: Module }) {
                       key={configName}
                       className={classNames('pr-4', {
                         'w-full': config.w === 8,
+                        'w-3/4': config.w === 6,
                         'w-1/2': config.w === 4 || !config.w,
                         'w-1/4': config.w === 2,
                         'w-1/8': config.w === 1
