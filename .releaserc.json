@@ -6,7 +6,7 @@
       "prerelease": true
     }
   ],
-  "dryRun": true,
+  "dryRun": false,
   "ci": true,
   "debug": true,
   "plugins": [
@@ -42,7 +42,7 @@
         "successComment": false,
         "failComment": false,
         "assets": [
-          {"path": "dist/Headrush desktop Setup <%= nextRelease.version %>.exe", "label": "Headrush desktop Setup <%= nextRelease.version %>.exe"}
+          {"path": "dist/*.exe", "label": "Windows Installer"}
         ]
       }
     ],
