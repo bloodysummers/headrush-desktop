@@ -51,12 +51,20 @@ export function getSetlist(
       )
       const rigs = setlistData.rig_names.map(rig => {
         const rigName = rig.replaceAll("'", '_')
-        const fileFullPath = path.resolve(data.path, './Rigs', `${rigName}.rig`)
-        const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
-        delete rigData.content
-        return {
-          name: rigName,
-          ...rigData
+        if (rigName) {
+          const fileFullPath = path.resolve(
+            data.path,
+            './Rigs',
+            `${rigName}.rig`
+          )
+          const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
+          delete rigData.content
+          return {
+            name: rigName,
+            ...rigData
+          }
+        } else {
+          return {}
         }
       })
       setlistData.rigs_data = rigs

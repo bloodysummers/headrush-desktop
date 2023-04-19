@@ -42,8 +42,8 @@ export default function SetlistEditor() {
     return <p>Error</p>
   }
 
-  const filteredRigs = setlist?.rigs_data.filter(rig =>
-    rig.name.toLowerCase().includes(term.toLowerCase())
+  const filteredRigs = setlist?.rigs_data.filter(
+    rig => rig?.name && rig.name.toLowerCase().includes(term.toLowerCase())
   )
 
   const onRigClick = (rig: Rig) => {
