@@ -1,3 +1,4 @@
+import Amp from './amp/amp'
 import BitCrush from './distortion/8BitCrush'
 import AnxietyOD from './distortion/AnxietyOD'
 import AnxietyODV2 from './distortion/AnxietyODV2'
@@ -80,10 +81,12 @@ export type ModulesConfig = {
 }
 
 export type ModuleConfig = {
-  [key: string]: RangeConfig | ToggleConfig | SetConfig
+  [key: string]: ModuleConfigSet
 }
 
-type RangeConfig = {
+export type ModuleConfigSet = RangeConfig | ToggleConfig | SetConfig
+
+export type RangeConfig = {
   type: 'range'
   label: string
   min: number
@@ -94,20 +97,20 @@ type RangeConfig = {
   displayMax?: number
 }
 
-type ToggleConfig = {
+export type ToggleConfig = {
   type: 'toggle'
   label: string
   off: string
   on: string
-  w?: 1 | 2 | 4 | 8
+  w?: 1 | 2 | 4 | 6 | 8
   style?: 'dropdown' | 'switch'
 }
 
-type SetConfig = {
+export type SetConfig = {
   type: 'set'
   label: string
   values: string[]
-  w?: 1 | 2 | 4 | 8
+  w?: 1 | 2 | 4 | 6 | 8
   style?: 'dropdown' | 'fader' | 'button'
 }
 
@@ -187,5 +190,6 @@ export const modulesConfig: ModulesConfig = {
   Panner,
   'Chord Wham': ChordWham,
   'Time Warp': TimeWarp,
-  Feedback
+  Feedback,
+  Amp: Amp
 }
