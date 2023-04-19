@@ -29,7 +29,7 @@ export default function Home() {
         <meta name="description" content="Edit rigs and setlists" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className="h-screen flex flex-row items-center justify-center">
+      <main className="h-screen flex flex-col items-center justify-center">
         <div className="bg-neutral-500 content-center p-4 bg-opacity-30">
           <form
             onSubmit={onSubmit}
@@ -70,6 +70,12 @@ export default function Home() {
               </Button>
             </div>
           )}
+        </div>
+        <div className="text-neutral-300 text-sm text-center mt-4 px-2">
+          All trademarks, logos and brand names are the property of their
+          respective owners. All company, product and service names used in this
+          application are for identification purposes only. Use of these
+          names,trademarks and brands does not imply endorsement.
         </div>
       </main>
     </>
