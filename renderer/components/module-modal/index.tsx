@@ -95,7 +95,7 @@ export default function ModuleModal({ module }: { module: Module }) {
   return (
     <div>
       <div className="flex p-10">
-        <div>
+        <div className="flex">
           <ModuleUI name={moduleName} data={editableModule} showImg />
         </div>
         <div className="flex-1 ml-4 h-72 overflow-y-auto scrollbar-thin scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
