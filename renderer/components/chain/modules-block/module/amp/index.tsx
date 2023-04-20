@@ -2,17 +2,19 @@ import Image from 'next/image'
 import styles from './amp.module.css'
 
 export default function Amp({
+  name,
   amp1,
   amp2,
   onClick
 }: {
+  name: string
   amp1: string
   amp2?: string
   onClick?: (module: string, type: string) => void
 }) {
   const _onClick = (amp: string) => {
     if (onClick) {
-      onClick(amp, 'Amp')
+      onClick(amp, name)
     }
   }
   return (

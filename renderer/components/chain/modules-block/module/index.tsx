@@ -17,7 +17,15 @@ export default function ModuleUI({
   data: Module
   onModuleClick?: (
     module: string,
-    type?: 'Amp' | 'Cab' | 'IR' | 'IR (1024)'
+    type?:
+      | 'Amp'
+      | 'Cab'
+      | 'IR'
+      | 'IR (1024)'
+      | 'Amp 2'
+      | 'Cab 2'
+      | 'IR 2'
+      | 'IR (1024) 2'
   ) => void
   showImg?: boolean
 }) {
@@ -26,19 +34,20 @@ export default function ModuleUI({
   if (chain?.string === 'Empty Slot') {
     return <EmptySlot />
   }
-  if (chain?.string === 'Amp') {
+  if (chain?.string === 'Amp' || chain?.string === 'Amp 2') {
     const ampName = children.Type.string.toUpperCase().replaceAll(' ', '-')
     const amp2Name = children.Type2.string.toUpperCase().replaceAll(' ', '-')
     const isDouble = children.Doubling?.state
     return (
       <Amp
+        name={chain?.string}
         amp1={ampName}
         amp2={isDouble ? amp2Name : null}
         onClick={onModuleClick}
       />
     )
   }
-  if (chain?.string === 'Cab') {
+  if (chain?.string === 'Cab' || chain?.string === 'Cab 2') {
     const cabName = children.CabType.string.toUpperCase().replaceAll(' ', '-')
     const cab2Name = children.CabType2.string.toUpperCase().replaceAll(' ', '-')
     const isDouble = children.Doubling?.state
