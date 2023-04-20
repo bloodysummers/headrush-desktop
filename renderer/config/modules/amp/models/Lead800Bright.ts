@@ -1,12 +1,12 @@
 import { AmpModel } from '.'
 
-const DeluxeGainMod: AmpModel = {
+const Lead800Bright: AmpModel = {
   Type: 'Model',
   GainA: 'Gain',
   Presence: 'Presence',
   Master: 'Mast Vol',
   Treble: 'Treble',
-  Mid: 'Mid',
+  Mid: 'Middle',
   Bass: 'Bass',
   Tremolo: 'Tremolo',
   TremSpeed: 'Speed',
@@ -15,13 +15,13 @@ const DeluxeGainMod: AmpModel = {
   Bright: 'Bright'
 }
 
-const DeluxeGainMod_2: AmpModel = {
+const Lead800Bright_2: AmpModel = {
   Type2: 'Model',
   GainA2: 'Gain',
   Presence2: 'Presence',
   Master2: 'Mast Vol',
   Treble2: 'Treble',
-  Mid2: 'Mid',
+  Mid2: 'Middle',
   Bass2: 'Bass',
   Tremolo: 'Tremolo',
   TremSpeed2: 'Speed',
@@ -30,4 +30,4 @@ const DeluxeGainMod_2: AmpModel = {
   Bright2: 'Bright'
 }
 
-export { DeluxeGainMod, DeluxeGainMod_2 }
+export { Lead800Bright, Lead800Bright_2 }
