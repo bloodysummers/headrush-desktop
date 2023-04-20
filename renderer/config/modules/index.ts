@@ -84,7 +84,11 @@ export type ModuleConfig = {
   [key: string]: ModuleConfigSet
 }
 
-export type ModuleConfigSet = RangeConfig | ToggleConfig | SetConfig
+export type ModuleConfigSet =
+  | RangeConfig
+  | ToggleConfig
+  | SetConfig
+  | RangeOrSet
 
 export type RangeConfig = {
   type: 'range'
@@ -112,6 +116,16 @@ export type SetConfig = {
   values: string[]
   w?: 1 | 2 | 4 | 6 | 8
   style?: 'dropdown' | 'fader' | 'button'
+}
+
+export type RangeOrSet = {
+  type: 'range|set'
+  label: string
+  min: number
+  max: number
+  step: number
+  unit: string
+  values: string[]
 }
 
 export const modulesConfig: ModulesConfig = {

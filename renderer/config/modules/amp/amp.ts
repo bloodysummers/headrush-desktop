@@ -8,7 +8,7 @@ const AmpModels = [
   '64 Black Lux Vib',
   '64 Black Lux Norm',
   '64 Black Vib',
-  '65 Black Sr',
+  '65 Black SR',
   '65 Black Mini',
   '65 Black Prince',
   '65 Black Prince Rev',
@@ -347,12 +347,31 @@ const Amp: ModuleConfig = {
     unit: ' %'
   },
   TremSpeed: {
-    type: 'range',
+    type: 'range|set',
     label: 'Trem Speed',
     min: 0.25,
     max: 20,
     step: 0.01,
-    unit: ' Hz'
+    unit: ' Hz',
+    values: [
+      'Bar',
+      '3/4',
+      '5/8',
+      '1/2',
+      '3/8',
+      '1/2T',
+      '1/4',
+      '3/16',
+      '1/4T',
+      '1/8',
+      '1/8T',
+      '1/16',
+      '1/16T',
+      '1/32',
+      '1/32T',
+      '1/64',
+      '1/128'
+    ]
   },
   TremSync: {
     type: 'toggle',

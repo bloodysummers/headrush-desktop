@@ -3,15 +3,22 @@ import { ipcRenderer } from 'electron'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import ColorSelector from '../color-selector'
-import Fader from '../fader'
 import Select from '../select'
 import Toggle from '../toggle'
 import ModuleUI from '../chain/modules-block/module'
 import { clone } from 'lodash'
 import { revertedColors } from '@/tokens/catalogs/colors'
-import { ModuleConfig, ModuleConfigSet, modulesConfig } from '@/config/modules'
-import classNames from 'classnames'
-import models, { AmpModel } from '@/config/modules/amp/models'
+import {
+  ModuleConfig,
+  ModuleConfigSet,
+  RangeConfig,
+  SetConfig,
+  modulesConfig
+} from '@/config/modules'
+import models from '@/config/modules/amp/models'
+import FaderWrapper from './fader-wrapper'
+import ToggleWrapper from './toggle-wrapper'
+import SetWrapper from './set-wrapper'
 
 export default function ModuleModal({ module }: { module: Module }) {
   const [editableModule, setEditableModule] = useState<Module>()
@@ -113,13 +120,6 @@ export default function ModuleModal({ module }: { module: Module }) {
     setEditableModule(newModule)
   }
 
-  const handleFloating = (value: number, step: number) => {
-    if (step === 0.1) return value.toFixed(1)
-    if (step === 0.01) return value.toFixed(2)
-    if (step === 0.001) return value.toFixed(3)
-    return String(value)
-  }
-
   return (
     <div>
       <div className="flex p-10">
@@ -165,120 +165,70 @@ export default function ModuleModal({ module }: { module: Module }) {
               const childData = children[configName]
               if (type === 'range')
                 return (
-                  <div key={configName} className="w-1/2 pr-4">
-                    <Fader
-                      min={config.min}
-                      max={config.max}
-                      step={config.step}
-                      label={`${label.toLocaleUpperCase()}: ${handleFloating(
-                        childData.value,
-                        config.step
-                      )}${config.unit}`}
-                      value={childData.value.toString()}
-                      onChange={value => {
-                        changeFaderValue(value, configName)
-                      }}
-                    />
-                  </div>
+                  <FaderWrapper
+                    key={configName}
+                    config={config}
+                    data={childData}
+                    onChange={value => changeFaderValue(value, configName)}
+                  />
                 )
               if (type === 'toggle') {
-                if (config.style === 'dropdown') {
-                  const options = [
-                    {
-                      label: config.off,
-                      value: 'false'
-                    },
-                    {
-                      label: config.on,
-                      value: 'true'
-                    }
-                  ]
-                  return (
-                    <div
-                      key={configName}
-                      className={classNames('pr-4', {
-                        'w-full': config.w === 8,
-                        'w-3/4': config.w === 6,
-                        'w-1/2': config.w === 4 || !config.w,
-                        'w-1/4': config.w === 2,
-                        'w-1/8': config.w === 1
-                      })}
-                    >
-                      <Select
-                        label={config.label}
-                        options={options}
-                        value={String(childData.state)}
-                      />
-                    </div>
-                  )
-                }
                 return (
-                  <div
+                  <ToggleWrapper
                     key={configName}
-                    className={classNames('pr-4', {
-                      'w-full': config.w === 8,
-                      'w-3/4': config.w === 6,
-                      'w-1/2': config.w === 4 || !config.w,
-                      'w-1/4': config.w === 2,
-                      'w-1/8': config.w === 1
-                    })}
-                  >
-                    <Toggle
-                      label={label}
-                      value={childData.state as boolean}
-                      options={[config.off, config.on]}
-                      onClick={value => {
-                        changeToggleValue(value, configName)
-                      }}
-                    />
-                  </div>
+                    config={config}
+                    data={childData}
+                    onChange={value => changeToggleValue(value, configName)}
+                  />
                 )
               }
               if (type === 'set') {
-                if (config.style === 'dropdown') {
-                  const options = config.values.map(value => ({
-                    label: value,
-                    value
-                  }))
-                  const value = childData.string
+                return (
+                  <SetWrapper
+                    key={configName}
+                    config={config}
+                    data={childData}
+                    onFaderChange={value =>
+                      changeSetFaderValue(value, configName)
+                    }
+                  />
+                )
+              }
+              if (type === 'range|set') {
+                if (childData.type === 0) {
+                  const newConfig: RangeConfig = {
+                    type: 'range',
+                    label,
+                    min: config.min,
+                    max: config.max,
+                    step: config.step,
+                    unit: config.unit
+                  }
                   return (
-                    <div
+                    <FaderWrapper
                       key={configName}
-                      className={classNames('pr-4', {
-                        'w-full': config.w === 8,
-                        'w-3/4': config.w === 6,
-                        'w-1/2': config.w === 4 || !config.w,
-                        'w-1/4': config.w === 2,
-                        'w-1/8': config.w === 1
-                      })}
-                    >
-                      <Select
-                        options={options}
-                        value={value}
-                        label={config.label}
-                      />
-                    </div>
+                      config={newConfig}
+                      data={childData}
+                      onChange={value => changeFaderValue(value, configName)}
+                    />
+                  )
+                } else if (childData.type === 4) {
+                  const newConfig: SetConfig = {
+                    type: 'set',
+                    label,
+                    values: config.values
+                  }
+                  return (
+                    <SetWrapper
+                      key={configName}
+                      config={newConfig}
+                      data={childData}
+                      onFaderChange={value =>
+                        changeSetFaderValue(value, configName)
+                      }
+                    />
                   )
                 }
-                const total = config.values.length
-                const text = childData.string
-                const labelText = `${label}: ${text}`
-                const index = String(config.values.indexOf(text))
-                return (
-                  <div key={configName} className="w-1/2 pr-4">
-                    <Fader
-                      min={0}
-                      max={total - 1}
-                      step={1}
-                      label={labelText.toLocaleUpperCase()}
-                      value={index}
-                      onChange={index => {
-                        const newValue = config.values[index]
-                        if (newValue) changeSetFaderValue(newValue, configName)
-                      }}
-                    />
-                  </div>
-                )
               }
             })}
           </div>
