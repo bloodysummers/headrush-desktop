@@ -1,9 +1,7 @@
-import { editorState } from '@/state/editor'
 import { Module } from '@/types/rig'
 import { ipcRenderer } from 'electron'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { useRecoilValue } from 'recoil'
 import ColorSelector from '../color-selector'
 import Fader from '../fader'
 import Select from '../select'
@@ -16,7 +14,6 @@ import classNames from 'classnames'
 import models, { AmpModel } from '@/config/modules/amp/models'
 
 export default function ModuleModal({ module }: { module: Module }) {
-  const editorData = useRecoilValue(editorState)
   const [editableModule, setEditableModule] = useState<Module>()
   const chain = editableModule?.data?.chain
   const children = editableModule?.data?.children
@@ -74,7 +71,6 @@ export default function ModuleModal({ module }: { module: Module }) {
     'blocksData',
     () =>
       ipcRenderer.invoke('get_blocks', {
-        path: editorData.path,
         name: moduleNameWithoutNumber
       }),
     {
@@ -85,7 +81,6 @@ export default function ModuleModal({ module }: { module: Module }) {
     'blockData',
     () =>
       ipcRenderer.invoke('get_block', {
-        path: editorData.path,
         name: presetName,
         preset: selectValue
       }),

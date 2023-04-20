@@ -1,17 +1,14 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ipcRenderer } from 'electron'
-import { useRecoilValue } from 'recoil'
 import { useQuery } from 'react-query'
 
 import { Module } from '@/types/rig'
-import { editorState } from '@/state/editor'
 import Header from '@/components/header'
 import Chain from '@/components/chain'
 
 export default function RigEditor() {
   const router = useRouter()
-  const editorData = useRecoilValue(editorState)
   const rigName = router.query.rig as string
 
   const {
@@ -22,7 +19,6 @@ export default function RigEditor() {
     `rigData-${rigName}`,
     () =>
       ipcRenderer.invoke('get_rig', {
-        path: editorData.path,
         name: rigName
       }),
     {

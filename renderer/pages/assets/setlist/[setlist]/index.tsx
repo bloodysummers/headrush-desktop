@@ -2,8 +2,6 @@ import { ipcRenderer } from 'electron'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { SetlistWithFullRigs } from '@/types/setlist'
-import { useRecoilValue } from 'recoil'
-import { editorState } from '@/state/editor'
 import { useQuery } from 'react-query'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
@@ -14,7 +12,6 @@ import { Rig } from '@/types/rig'
 
 export default function SetlistEditor() {
   const router = useRouter()
-  const editorData = useRecoilValue(editorState)
   const setlistName = router.query.setlist as string
   const [term, setTerm] = useState('')
 
@@ -26,7 +23,6 @@ export default function SetlistEditor() {
     `setlistData-${setlistName}`,
     () =>
       ipcRenderer.invoke('get_setlist', {
-        path: editorData.path,
         name: setlistName
       }),
     {

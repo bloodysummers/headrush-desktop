@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Setlist, SetlistWithFullRigs } from '../../../renderer/types/setlist'
+import { Setlist, SetlistWithFullRigs } from '../../types/setlist'
 import { uuid } from 'uuidv4'
 
 type SetlistError = {
@@ -10,15 +10,11 @@ const MISSING_PATH = 'MISSING_PATH'
 const UNHANDLED_ERROR = 'UNHANDLED_ERROR'
 const SETLISTS_NOT_FOUND = 'SETLISTS_NOT_FOUND'
 
-type SetlistsData = {
-  path: string
-}
-
-export function getSetlists(data: SetlistsData): string[] | SetlistError {
-  if (data.path) {
+export function getSetlists(hrPath: string): string[] | SetlistError {
+  if (hrPath) {
     try {
       return fs
-        .readdirSync(path.resolve(data.path, './Setlists'))
+        .readdirSync(path.resolve(hrPath, './Setlists'))
         .map(setlist => setlist.replace('.setlist', ''))
     } catch (e) {
       return {
@@ -32,17 +28,17 @@ export function getSetlists(data: SetlistsData): string[] | SetlistError {
 }
 
 type SetlistData = {
-  path: string
   name: string
 }
 
 export function getSetlist(
-  data: SetlistData
+  data: SetlistData,
+  hrPath: string
 ): SetlistWithFullRigs | SetlistError {
-  if (data.path) {
+  if (hrPath) {
     try {
       const fileFullPath = path.resolve(
-        data.path,
+        hrPath,
         './Setlists',
         `${data.name}.setlist`
       )
@@ -52,11 +48,7 @@ export function getSetlist(
       const rigs = setlistData.rig_names.map(rig => {
         const rigName = rig.replaceAll("'", '_')
         if (rigName) {
-          const fileFullPath = path.resolve(
-            data.path,
-            './Rigs',
-            `${rigName}.rig`
-          )
+          const fileFullPath = path.resolve(hrPath, './Rigs', `${rigName}.rig`)
           const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
           delete rigData.content
           return {
@@ -80,12 +72,13 @@ export function getSetlist(
   }
 }
 
-export function removeSetlist(data: SetlistData): boolean | SetlistError {
-  if (data.path) {
+export function removeSetlist(
+  data: SetlistData,
+  hrPath: string
+): boolean | SetlistError {
+  if (hrPath) {
     try {
-      fs.unlinkSync(
-        path.resolve(data.path, './Setlists', `${data.name}.setlist`)
-      )
+      fs.unlinkSync(path.resolve(hrPath, './Setlists', `${data.name}.setlist`))
       return true
     } catch (e) {
       return {
@@ -99,13 +92,15 @@ export function removeSetlist(data: SetlistData): boolean | SetlistError {
 }
 
 type NewSetlistData = {
-  path: string
   name: string
   author: string
 }
 
-export function newSetlist(data: NewSetlistData): string | SetlistError {
-  if (data.path) {
+export function newSetlist(
+  data: NewSetlistData,
+  hrPath: string
+): string | SetlistError {
+  if (hrPath) {
     try {
       const setlist: Setlist = {
         author: data.author,
@@ -117,7 +112,7 @@ export function newSetlist(data: NewSetlistData): string | SetlistError {
         readonly: false
       }
       fs.writeFileSync(
-        path.resolve(data.path, './Setlists', `${data.name}.setlist`),
+        path.resolve(hrPath, './Setlists', `${data.name}.setlist`),
         JSON.stringify(setlist)
       )
       return data.name
@@ -126,6 +121,9 @@ export function newSetlist(data: NewSetlistData): string | SetlistError {
         error: UNHANDLED_ERROR
       }
     }
+  }
+  return {
+    error: MISSING_PATH
   }
 }
 
@@ -137,12 +135,15 @@ type SaveSetlistData = {
   }
 }
 
-export function saveSetlist(data: SaveSetlistData): boolean | SetlistError {
-  if (data.path) {
+export function saveSetlist(
+  data: SaveSetlistData,
+  hrPath: string
+): boolean | SetlistError {
+  if (hrPath) {
     try {
       delete data.data.setlist.rigs_data
       fs.writeFileSync(
-        path.resolve(data.path, './Setlists', `${data.data.name}.setlist`),
+        path.resolve(hrPath, './Setlists', `${data.data.name}.setlist`),
         JSON.stringify(data.data.setlist)
       )
       return true

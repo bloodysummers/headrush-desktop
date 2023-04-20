@@ -10,15 +10,17 @@ const UNHANDLED_ERROR = 'UNHANDLED_ERROR'
 const BLOCKS_NOT_FOUND = 'BLOCKS_NOT_FOUND'
 
 type GetBlocksData = {
-  path: string
   name: string
 }
 
-export function getBlocks(data: GetBlocksData): string[] | RigError {
-  if (data.path) {
+export function getBlocks(
+  data: GetBlocksData,
+  hrPath: string
+): string[] | RigError {
+  if (hrPath) {
     try {
       return fs
-        .readdirSync(path.resolve(data.path, './Blocks', data.name))
+        .readdirSync(path.resolve(hrPath, './Blocks', data.name))
         .map(rig => rig.replace('.block', ''))
     } catch (e) {
       return {
@@ -31,16 +33,18 @@ export function getBlocks(data: GetBlocksData): string[] | RigError {
   }
 }
 type GetBlockData = {
-  path: string
   name: string
   preset: string
 }
 
-export function getBlock(data: GetBlockData): BlockWithContent | RigError {
-  if (data.path) {
+export function getBlock(
+  data: GetBlockData,
+  hrPath: string
+): BlockWithContent | RigError {
+  if (hrPath) {
     try {
       const fileFullPath = path.resolve(
-        data.path,
+        hrPath,
         './Blocks',
         data.name,
         `${data.preset}.block`

@@ -16,6 +16,7 @@ import {
   saveSetlist
 } from '../api/setlist'
 import { getBlock, getBlocks } from '../api/block'
+import { EditorData, SchemaType, defaultConfig } from '../types/editor'
 
 const createWindow = (
   windowName: string,
@@ -23,10 +24,10 @@ const createWindow = (
 ): BrowserWindow => {
   const key = 'window-state'
   const name = `window-state-${windowName}`
-  const store = new Store({ name })
+  const store = new Store<SchemaType>({ name })
   const defaultSize = {
-    width: options.width,
-    height: options.height
+    width: 1000,
+    height: 600
   }
 
   const restore = () => store.get(key, defaultSize)
@@ -83,6 +84,7 @@ const createWindow = (
   const browserOptions: BrowserWindowConstructorOptions = {
     ...state,
     ...options,
+    ...defaultSize,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -106,40 +108,58 @@ const createWindow = (
     win.webContents.goBack()
   })
 
-  ipcMain.handle('get_setlists', (_, data) => {
-    return getSetlists(data)
+  ipcMain.handle('set_config', (_, data: EditorData) => {
+    store.set('editor_data', data)
+    return data
+  })
+
+  ipcMain.handle('get_config', () => {
+    return store.get('editor_data') || defaultConfig
+  })
+
+  ipcMain.handle('get_setlists', () => {
+    const { hrPath } = store.get('editor_data')
+    return getSetlists(hrPath)
   })
 
   ipcMain.handle('get_setlist', (_, data) => {
-    return getSetlist(data)
+    const { hrPath } = store.get('editor_data')
+    return getSetlist(data, hrPath)
   })
 
   ipcMain.handle('remove_setlist', (_, data) => {
-    return removeSetlist(data)
+    const { hrPath } = store.get('editor_data')
+    return removeSetlist(data, hrPath)
   })
 
   ipcMain.handle('new_setlist', (_, data) => {
-    return newSetlist(data)
+    const { hrPath } = store.get('editor_data')
+    return newSetlist(data, hrPath)
   })
 
   ipcMain.handle('save_setlist', (_, data) => {
-    return saveSetlist(data)
+    const { hrPath } = store.get('editor_data')
+    return saveSetlist(data, hrPath)
   })
 
   ipcMain.handle('get_rigs', (_, data) => {
-    return getRigs(data)
+    const { hrPath } = store.get('editor_data')
+    return getRigs(hrPath)
   })
 
   ipcMain.handle('get_rig', (_, data) => {
-    return getRig(data)
+    const { hrPath } = store.get('editor_data')
+    return getRig(data, hrPath)
   })
 
   ipcMain.handle('get_blocks', (_, data) => {
-    return getBlocks(data)
+    const { hrPath } = store.get('editor_data')
+    return getBlocks(data, hrPath)
   })
 
   ipcMain.handle('get_block', (_, data) => {
-    return getBlock(data)
+    const { hrPath } = store.get('editor_data')
+    return getBlock(data, hrPath)
   })
 
   ipcMain.handle('refresh', () => {

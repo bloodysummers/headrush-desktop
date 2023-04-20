@@ -1,25 +1,42 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { FormEvent, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { editorState } from '../state/editor'
+import { FormEvent, useEffect, useState } from 'react'
 import Button from '@/components/button'
 import Input from '@/components/input'
 import { useRouter } from 'next/router'
+import { ipcRenderer } from 'electron'
+import { EditorData, defaultConfig } from '../types/editor'
 
 export default function Home() {
   const router = useRouter()
-  const [editor, setEditor] = useRecoilState(editorState)
+  const [editor, setEditor] = useState<EditorData>(defaultConfig)
 
-  const [path, setPath] = useState<string>(editor.path)
+  const [path, setPath] = useState<string>(editor?.hrPath)
 
   const onChange = value => {
     setPath(value)
   }
 
-  const onSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    getEditorData()
+  }, [])
+
+  useEffect(() => {
+    setPath(editor?.hrPath)
+  }, [editor])
+
+  const getEditorData = async () => {
+    const editorData = (await ipcRenderer.invoke('get_config')) as EditorData
+    setEditor(editorData)
+  }
+
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setEditor({ path: path || '' })
+    const editorData = (await ipcRenderer.invoke('set_config', {
+      ...editor,
+      hrPath: path
+    })) as EditorData
+    setEditor(editorData)
   }
 
   return (
@@ -54,7 +71,7 @@ export default function Home() {
             />
             <Button type="submit">Read directory</Button>
           </form>
-          {editor.path && (
+          {editor?.hrPath && (
             <div className="flex flex-row shrink-0">
               <Button
                 className="flex-1"

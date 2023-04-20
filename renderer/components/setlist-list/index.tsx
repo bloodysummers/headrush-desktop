@@ -6,8 +6,6 @@ import { useState } from 'react'
 import DeleteModal from './delete-modal'
 import { useMutation, useQueryClient } from 'react-query'
 import { ipcRenderer } from 'electron'
-import { useRecoilValue } from 'recoil'
-import { EditorData, editorState } from '@/state/editor'
 import spacing from '@/tokens/spacing'
 
 export default function SetlistList({
@@ -17,7 +15,6 @@ export default function SetlistList({
   data: string[]
   href?: string
 }) {
-  const editorData = useRecoilValue<EditorData>(editorState)
   const router = useRouter()
   const queryClient = useQueryClient()
   const [showModal, setShowModal] = useState('')
@@ -28,7 +25,7 @@ export default function SetlistList({
 
   const removeSetlist = useMutation({
     mutationFn: async (name: string) =>
-      ipcRenderer.invoke('remove_setlist', { path: editorData.path, name }),
+      ipcRenderer.invoke('remove_setlist', { name }),
     onSuccess: () => {
       setShowModal('')
       queryClient.invalidateQueries(['setlistsList'])

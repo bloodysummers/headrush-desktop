@@ -1,10 +1,8 @@
 import { ipcRenderer } from 'electron'
 import Head from 'next/head'
 import { useQuery } from 'react-query'
-import { useRecoilValue } from 'recoil'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
-import { EditorData, editorState } from '../../../state/editor'
 import Searchbox from '@/components/searchbox'
 import { useState } from 'react'
 import { Rig as RigType } from '@/types/rig'
@@ -13,11 +11,10 @@ import spacing from '@/tokens/spacing'
 
 export default function Rig() {
   const router = useRouter()
-  const editorData = useRecoilValue<EditorData>(editorState)
   const [term, setTerm] = useState('')
 
   const { isLoading, error, data } = useQuery<RigType[]>('rigsList', () =>
-    ipcRenderer.invoke('get_rigs', { path: editorData.path })
+    ipcRenderer.invoke('get_rigs')
   )
 
   if (isLoading) {

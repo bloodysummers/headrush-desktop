@@ -2,9 +2,7 @@ import { ipcRenderer } from 'electron'
 import { useMutation, useQuery } from 'react-query'
 import { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { useRecoilValue } from 'recoil'
 import Head from 'next/head'
-import { EditorData, editorState } from '@/state/editor'
 import Header from '@/components/header'
 import Searchbox from '@/components/searchbox'
 import SetlistList from '@/components/setlist-list'
@@ -13,19 +11,17 @@ import NewSetlistModal from '@/components/new-setlist-modal'
 import { useRouter } from 'next/router'
 
 export default function Setlists() {
-  const editorData = useRecoilValue<EditorData>(editorState)
   const [term, setTerm] = useState('')
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
   const { isLoading, error, data } = useQuery('setlistsList', () =>
-    ipcRenderer.invoke('get_setlists', { path: editorData.path })
+    ipcRenderer.invoke('get_setlists')
   )
 
   const newSetlist = useMutation({
     mutationFn: async (name: string) =>
       ipcRenderer.invoke('new_setlist', {
-        path: editorData.path,
         name,
         author: 'UserName'
       }),

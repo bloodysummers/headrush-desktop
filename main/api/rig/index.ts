@@ -9,15 +9,11 @@ const MISSING_PATH = 'MISSING_PATH'
 const UNHANDLED_ERROR = 'UNHANDLED_ERROR'
 const RIGS_NOT_FOUND = 'RIGS_NOT_FOUND'
 
-type GetRigsData = {
-  path: string
-}
-
-export function getRigs(data: GetRigData): Rig[] | RigError {
-  if (data.path) {
+export function getRigs(hrPath: string): Rig[] | RigError {
+  if (hrPath) {
     try {
-      return fs.readdirSync(path.resolve(data.path, './Rigs')).map(rig => {
-        const fileFullPath = path.resolve(data.path, './Rigs', rig)
+      return fs.readdirSync(path.resolve(hrPath, './Rigs')).map(rig => {
+        const fileFullPath = path.resolve(hrPath, './Rigs', rig)
         const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
         delete rigData.content
         return {
@@ -36,14 +32,16 @@ export function getRigs(data: GetRigData): Rig[] | RigError {
   }
 }
 type GetRigData = {
-  path: string
   name: string
 }
 
-export function getRig(data: GetRigData): RigWithContent | RigError {
-  if (data.path) {
+export function getRig(
+  data: GetRigData,
+  hrPath: string
+): RigWithContent | RigError {
+  if (hrPath) {
     try {
-      const fileFullPath = path.resolve(data.path, './Rigs', `${data.name}.rig`)
+      const fileFullPath = path.resolve(hrPath, './Rigs', `${data.name}.rig`)
       const rigData = JSON.parse(fs.readFileSync(fileFullPath, 'utf-8'))
       const rigContent = JSON.parse(rigData.content)
       return {

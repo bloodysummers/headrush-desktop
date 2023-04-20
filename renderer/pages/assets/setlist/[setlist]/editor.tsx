@@ -2,8 +2,6 @@ import { ipcRenderer } from 'electron'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { SetlistWithFullRigs } from '@/types/setlist'
-import { useRecoilValue } from 'recoil'
-import { editorState } from '@/state/editor'
 import { useMutation, useQuery } from 'react-query'
 import Header from '@/components/header'
 import RigList from '@/components/rig-list'
@@ -15,12 +13,11 @@ import spacing from '@/tokens/spacing'
 
 export default function SetlistEditor() {
   const router = useRouter()
-  const editorData = useRecoilValue(editorState)
   const setlistName = router.query.setlist as string
   const [term, setTerm] = useState('')
 
   const { isLoading, error, data } = useQuery<Rig[]>('rigsList', () =>
-    ipcRenderer.invoke('get_rigs', { path: editorData.path })
+    ipcRenderer.invoke('get_rigs')
   )
 
   const {
@@ -31,7 +28,6 @@ export default function SetlistEditor() {
     `setlistData-${setlistName}`,
     () =>
       ipcRenderer.invoke('get_setlist', {
-        path: editorData.path,
         name: setlistName
       }),
     {
@@ -42,7 +38,7 @@ export default function SetlistEditor() {
 
   const removeSetlist = useMutation({
     mutationFn: async (data: { name: string; setlist: SetlistWithFullRigs }) =>
-      ipcRenderer.invoke('save_setlist', { path: editorData.path, data })
+      ipcRenderer.invoke('save_setlist', { data })
   })
 
   useEffect(() => {
