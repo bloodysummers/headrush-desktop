@@ -71,20 +71,60 @@ const SmartHarm: ModuleConfig = {
     unit: ' ms'
   },
   Delay1: {
-    type: 'range',
+    type: 'range|set',
     label: 'VC 1 Delay',
     min: 0,
     max: 2000,
     step: 1,
-    unit: ' ms'
+    unit: ' ms',
+    values: [
+      '0',
+      '1/128',
+      '1/64',
+      '1/32T',
+      '1/32',
+      '1/16T',
+      '1/16',
+      '1/8T',
+      '1/8',
+      '1/4T',
+      '3/16',
+      '1/4',
+      '1/2T',
+      '3/8',
+      '1/2',
+      '5/8',
+      '3/4',
+      'Bar'
+    ]
   },
   Delay2: {
-    type: 'range',
+    type: 'range|set',
     label: 'VC 2 Delay',
     min: 0,
     max: 2000,
     step: 1,
-    unit: ' ms'
+    unit: ' ms',
+    values: [
+      '0',
+      '1/128',
+      '1/64',
+      '1/32T',
+      '1/32',
+      '1/16T',
+      '1/16',
+      '1/8T',
+      '1/8',
+      '1/4T',
+      '3/16',
+      '1/4',
+      '1/2T',
+      '3/8',
+      '1/2',
+      '5/8',
+      '3/4',
+      'Bar'
+    ]
   },
   Sync: {
     type: 'toggle',

@@ -37,8 +37,12 @@ const PitchDelay: ModuleConfig = {
     style: 'dropdown'
   },
   Delay: {
-    type: 'set',
+    type: 'range|set',
     label: 'Delay',
+    min: 1,
+    max: 2000,
+    step: 1,
+    unit: ' ms',
     values: [
       '1/128',
       '1/64',

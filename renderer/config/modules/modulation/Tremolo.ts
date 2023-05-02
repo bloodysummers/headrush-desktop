@@ -2,8 +2,12 @@ import { ModuleConfig } from '..'
 
 const Tremolo: ModuleConfig = {
   Rate: {
-    type: 'set',
+    type: 'range|set',
     label: 'Rate',
+    min: 0.1,
+    max: 12,
+    step: 0.1,
+    unit: ' Hz',
     values: [
       'Bar',
       '3/4',

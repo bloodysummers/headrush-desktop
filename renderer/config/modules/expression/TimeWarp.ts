@@ -10,12 +10,31 @@ const TimeWarp: ModuleConfig = {
     unit: ' %'
   },
   Delay: {
-    type: 'range',
+    type: 'range|set',
     label: 'Delay',
     min: 200,
     max: 2400,
     step: 1,
-    unit: ' ms'
+    unit: ' ms',
+    values: [
+      '1/128',
+      '1/64',
+      '1/32T',
+      '1/32',
+      '1/16T',
+      '1/16',
+      '1/8T',
+      '1/8',
+      '1/4T',
+      '3/16',
+      '1/4',
+      '1/2T',
+      '3/8',
+      '1/2',
+      '5/8',
+      '3/4',
+      'Bar'
+    ]
   },
   Sync: {
     type: 'toggle',

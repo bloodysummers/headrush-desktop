@@ -2,8 +2,12 @@ import { ModuleConfig } from '..'
 
 const DynDelay: ModuleConfig = {
   Delay: {
-    type: 'set',
+    type: 'range|set',
     label: 'Delay',
+    min: 1,
+    max: 4000,
+    step: 1,
+    unit: ' ms',
     values: [
       '1/128',
       '1/64',
