@@ -1,3 +1,19 @@
+# [1.0.0-beta.2](https://github.com/bloodysummers/headrush-desktop/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-05-02)
+
+
+### Bug Fixes
+
+* Change pedals affected by Sync ([57c512c](https://github.com/bloodysummers/headrush-desktop/commit/57c512cbf8578f3667561fcbc2327e3f8e801a8c))
+* Handle the case of duplicated modules ([7998a83](https://github.com/bloodysummers/headrush-desktop/commit/7998a83da7b453e4bf27ea657426acef4231dcc3))
+* Replace recoil with electron-store ([c052d36](https://github.com/bloodysummers/headrush-desktop/commit/c052d36f6377c80985b80e0c05d310794bcdd781))
+
+
+### Features
+
+* Add more amp configs ([d89dcbd](https://github.com/bloodysummers/headrush-desktop/commit/d89dcbd7aa9d3ac4414202bd4cc3d09df8166109))
+* Add some amp models configs ([9fdee2a](https://github.com/bloodysummers/headrush-desktop/commit/9fdee2ac36a9a9fc6555b7af35604c001d14d641))
+* Handle cases of configs that can be range or set ([78f671e](https://github.com/bloodysummers/headrush-desktop/commit/78f671e7663889e294aa9f7e209098daa7bf2363))
+
 # 1.0.0-beta.1 (2023-04-19)
 
 
