@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "nextron",
     "build": "nextron build --win --x64",
+    "build:all": "nextron build --all",
     "postinstall": "electron-builder install-app-deps && husky install",
     "semantic-release": "semantic-release",
     "pre-commit": "lint-staged"

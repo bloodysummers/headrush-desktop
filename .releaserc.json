@@ -37,12 +37,20 @@
       }
     ],
     [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "yarn build:all"
+      }
+    ],
+    [
       "@semantic-release/github",
       {
         "successComment": false,
         "failComment": false,
         "assets": [
-          {"path": "dist/*.exe", "label": "Windows Installer"}
+          {"path": "dist/*.exe", "label": "Windows Installer"},
+          {"path": "dist/*.app", "label": "MacOS Installer"},
+          {"path": "dist/*.deb", "label": "Linux Installer"}
         ]
       }
     ],

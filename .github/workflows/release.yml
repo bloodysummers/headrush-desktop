@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   ci:
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,8 +17,6 @@ jobs:
           cache: 'yarn'
       - name: Prepare
         run: yarn install
-      - name: Build
-        run: yarn build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
