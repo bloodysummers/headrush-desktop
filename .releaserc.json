@@ -39,7 +39,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "yarn build:all"
+        "prepareCmd": "yarn build:all && ls dist"
       }
     ],
     [
@@ -49,7 +49,7 @@
         "failComment": false,
         "assets": [
           {"path": "dist/*.exe", "label": "Windows Installer"},
-          {"path": "dist/*.app", "label": "MacOS Installer"},
+          {"path": "dist/*.dmg", "label": "MacOS Installer"},
           {"path": "dist/*.deb", "label": "Linux Installer"}
         ]
       }
