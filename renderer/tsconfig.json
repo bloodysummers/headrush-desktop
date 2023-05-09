@@ -2,7 +2,8 @@
   "compilerOptions": {
     "strictNullChecks": false,
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "react": [ "../node_modules/@types/react" ]
     }
   },
   "extends": "../tsconfig.json",
