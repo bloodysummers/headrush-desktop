@@ -1,3 +1,11 @@
+# [1.0.0-beta.5](https://github.com/bloodysummers/headrush-desktop/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2023-05-09)
+
+
+### Bug Fixes
+
+* Change the path to resolve react types ([b806cab](https://github.com/bloodysummers/headrush-desktop/commit/b806cab6737139beb62e78c2cb63936e7aa403d1))
+* Upgrade dependencies ([d699a2d](https://github.com/bloodysummers/headrush-desktop/commit/d699a2de3dc4b0bed2036792c06788be0266205a))
+
 # [1.0.0-beta.4](https://github.com/bloodysummers/headrush-desktop/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-05-08)
 
 
