@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/bloodysummers/headrush-desktop/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2023-05-08)
+
+
+### Bug Fixes
+
+* Fix version number ([20fe2c2](https://github.com/bloodysummers/headrush-desktop/commit/20fe2c2bb2dda529d623c5f11b908842e449d91a))
+
 # [1.0.0-beta.2](https://github.com/bloodysummers/headrush-desktop/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2023-05-02)
 
 
