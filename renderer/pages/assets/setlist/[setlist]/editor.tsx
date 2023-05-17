@@ -68,8 +68,8 @@ export default function SetlistEditor() {
       ...setlist
     }
     newSetlist.rigs_data = editableSetlist
-    newSetlist.rig_names = editableSetlist.map(rig => rig.name)
-    newSetlist.rigs = editableSetlist.map(rig => rig.id)
+    newSetlist.rig_names = editableSetlist.map(rig => rig.name || '')
+    newSetlist.rigs = editableSetlist.map(rig => rig.id || '')
 
     removeSetlist.mutate({
       name: setlistName,

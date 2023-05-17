@@ -34,6 +34,14 @@ export default function EditableSetlist({
     }, 150)
   }
 
+  const handleEmptyDelete = (index: number) => {
+    const updatedList = [...items]
+    updatedList.splice(index, 1)
+    setTimeout(() => {
+      setItems(updatedList)
+    }, 150)
+  }
+
   return (
     <div className="p-4 overflow-y-auto scrollbar-thin h-full scrollbar-track-neutral-600 scrollbar-thumb-presetGreen scrollbar-thumb-rounded-md">
       <DragDropContext onDragEnd={handleDrop}>
@@ -46,7 +54,11 @@ export default function EditableSetlist({
             >
               {items.map((rig, index) => {
                 return (
-                  <Draggable key={rig.id} draggableId={rig.id} index={index}>
+                  <Draggable
+                    key={rig.id || String(index)}
+                    draggableId={rig.id || String(index)}
+                    index={index}
+                  >
                     {provided => (
                       <div
                         className="item-container h-16"
@@ -54,10 +66,26 @@ export default function EditableSetlist({
                         {...provided.dragHandleProps}
                         {...provided.draggableProps}
                       >
-                        <ListItem
-                          item={rig}
-                          onDelete={() => handleDelete(rig)}
-                        />
+                        {rig.id ? (
+                          <ListItem
+                            item={rig}
+                            onDelete={() => handleDelete(rig)}
+                          />
+                        ) : (
+                          <ListItem
+                            item={{
+                              id: String(index),
+                              color: 0,
+                              name: '',
+                              author: '',
+                              created_at: 0,
+                              order: 0,
+                              prog_num: 0,
+                              readonly: false
+                            }}
+                            onDelete={() => handleEmptyDelete(index)}
+                          />
+                        )}
                       </div>
                     )}
                   </Draggable>

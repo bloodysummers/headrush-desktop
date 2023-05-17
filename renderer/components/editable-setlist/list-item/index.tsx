@@ -40,7 +40,7 @@ export default function ListItem({
           alt="Drag"
         />
       </div>
-      <div className="px-2 py-4 flex-1">{item.name}</div>
+      <div className="px-2 py-4 flex-1 h-14">{item.name}</div>
       <div
         className="bg-red-500 w-8 h-8 flex justify-center items-center rounded-full mr-2 mt-2 cursor-pointer"
         onClick={_onDelete}
