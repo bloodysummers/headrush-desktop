@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { Rig } from '@/types/rig'
 import EditableSetlist from '@/components/editable-setlist'
 import spacing from '@/tokens/spacing'
+import Empty from './empty'
 
 export default function SetlistEditor() {
   const router = useRouter()
@@ -63,6 +64,12 @@ export default function SetlistEditor() {
     setEditableSetlist(newItems)
   }
 
+  const addEmptySlot = () => {
+    const newItems = [...editableSetlist]
+    newItems.push({} as Rig)
+    setEditableSetlist(newItems)
+  }
+
   const onSave = () => {
     const newSetlist: SetlistWithFullRigs = {
       ...setlist
@@ -100,9 +107,14 @@ export default function SetlistEditor() {
           <div className="flex-1">
             <Searchbox onChange={setTerm} value={term} />
             <div
-              style={{ height: `calc(100% - ${spacing.searchBoxHeight}px)` }}
+              style={{
+                height: `calc(100% - ${spacing.searchBoxHeight + 48}px)`
+              }}
             >
               <RigList data={filteredRigs} onClick={onRigClick} />
+            </div>
+            <div>
+              <Empty onClick={addEmptySlot} />
             </div>
           </div>
           <div className="flex-1 h-full">

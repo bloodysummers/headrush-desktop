@@ -76,7 +76,7 @@ export default function EditableSetlist({
                             item={{
                               id: String(index),
                               color: 0,
-                              name: '',
+                              name: '[EMPTY]',
                               author: '',
                               created_at: 0,
                               order: 0,
